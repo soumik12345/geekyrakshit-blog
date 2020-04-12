@@ -39,7 +39,7 @@ It can also be defined as the overlap of two functions f and g as one slides ove
 
 In order to decide the computational complexity of the convolutional operation, we would count the number of multiplication operations for a convolution. This is because the Binary Addition of two numbers may be performed in a single clock cycle using two registers with the inputs latched and a bunch of combinatorial logic gates. Binary multiplication, however, requires successive shift and addition operations which must be performed as many times as there are bits in the multiplier and is thus a more expensive operation.
 
-Let us consider an input volume of the dimension ($$D_{V}$$, $$D_{V}$$, N) where $$D_{V}$$ is the height and width of the volume and `N` is the number of channels. In the case of a standard RGB image `N = 3` and for a gray-scale image `N = 1`.
+Let us consider an input volume of the dimension ($$D_{V}$$, $$D_{V}$$, N) where $$D_{V}$$ is the height and width of the volume and $$N$$ is the number of channels. In the case of a standard RGB image $$N = 3$$ and for a gray-scale image $$N = 1$$.
 
 <figure class="image">
     <center>
@@ -47,4 +47,22 @@ Let us consider an input volume of the dimension ($$D_{V}$$, $$D_{V}$$, N) where
     </center>
 </figure>
 
-Let us convolve V with a tensor of shape ($$D_{V}$$, $$D_{V}$$, N) or N tensors with the shape ($$D_{K}$$, $$D_{K}$$) which results in a volume `G` of shape ($$D_{G}$$, $$D_{G}$$, N).
+Let us convolve V with a tensor of shape ($$D_{V}$$, $$D_{V}$$, N) or N tensors with the shape ($$D_{k}$$, $$D_{k}$$) which results in a volume $$G$$ of shape ($$D_{G}$$, $$D_{G}$$, N).
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/dsc/img_4.png">
+    </center>
+</figure>
+
+Let us count the number of multiplication operations for this operation.
+
+Number of multiplication operations for a single stride across a single channel = $$D_{k} * $$D_{k}$$.
+
+For M channels in the initial volume, the number of multiplication operations = $$(D_{k})^{2} * M$$.
+
+Sliding the kernel over a volume of ($$D_{V}$$, $$D_{V}$$, M), we get a tensor of shape ($$D_{G}$$, $$D_{G}$$, N). Hence the total number of multiplication operations for a single channel of the convolution kernel = $$(D_{G})^{2} * (D_{k})^{2} * M$$.
+
+Since there are N channels in the convolutional kernel, this operation is repeated N times. Hence, the total number of multiplication operations for the above convolution operation = $$N * (D_{G})^{2} * (D_{k})^{2} * M$$.
+
+Now, let us see how using an alternate form of the vanilla convolution operation, we can reduce time complexity.
