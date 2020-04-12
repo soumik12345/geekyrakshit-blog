@@ -131,3 +131,5 @@ I always wondered about those Facebook applications which used to predict stuff 
 </figure>
 
 The project can be found at [https://github.com/soumik12345/Nearest-Celebrity-Face](https://github.com/soumik12345/Nearest-Celebrity-Face). If you like the project and found the results to be hilarious, please leave a star on the Github repository. For more such exciting articles, stay tuned at http://geekyrakshit.com.
+
+$$mean = \frac{\displaystyle\sum_{i=1}^{n} x_{i}}{n}$$
