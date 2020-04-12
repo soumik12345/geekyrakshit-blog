@@ -58,7 +58,7 @@ The job of the function D is to learn the level of difference between two differ
 
 If we believe the encodings to be a good enough representation of the input images, we can define the function D as the square of norm of the difference between the Encodings.
 
-$$D(x_{1}, x_{2}) = ||f(x_{1}) - f(x_{2})||^{2}
+$$D(x_{1}, x_{2}) = ||f(x_{1}) - f(x_{2})||^{2}$$
 
 Now the question comes that how do we train such a network. Since the same network is used to compute the Encodings from two different images, we have to train the parameters so that the trained network defines as accurate Encoding.
 
@@ -76,19 +76,19 @@ One way to learn the parameters of the neural network so that it gives you an ac
 
 For Positive Image,
 
-$$D(A, P) = ||f(A) - f(P)||^{2}
+$$D(A, P) = ||f(A) - f(P)||^{2}$$
 
 For Negative Image,
 
-$$D(A, N) = ||f(A) - f(N)||^{2}
+$$D(A, N) = ||f(A) - f(N)||^{2}$$
 
 Learning Objective is
 
-$$D(A, P) - D(A, N) + \alpha \leq 0
+$$D(A, P) - D(A, N) + \alpha \leq 0$$
 
 where **α** is defined as a margin and the Loss Function is given as
 
-$$loss = \sum_{i=1}^{n} max(||f(A_{i}) - f(P_{i})||^{2} - ||f(A_{i}) - f(P_{i})||^{2} + \alpha, 0)
+$$loss = \sum_{i=1}^{n} max(||f(A_{i}) - f(P_{i})||^{2} - ||f(A_{i}) - f(P_{i})||^{2} + \alpha, 0)$$
 
 where **n** is the number of triplets in the dataset.
 
@@ -131,5 +131,3 @@ I always wondered about those Facebook applications which used to predict stuff 
 </figure>
 
 The project can be found at [https://github.com/soumik12345/Nearest-Celebrity-Face](https://github.com/soumik12345/Nearest-Celebrity-Face). If you like the project and found the results to be hilarious, please leave a star on the Github repository. For more such exciting articles, stay tuned at http://geekyrakshit.com.
-
-$$mean = \frac{\displaystyle\sum_{i=1}^{n} x_{i}}{n}$$
