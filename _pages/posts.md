@@ -3,4 +3,4 @@ layout: page
 title: Posts
 permalink: /posts/
 ---
-# Posts
+All my posts
