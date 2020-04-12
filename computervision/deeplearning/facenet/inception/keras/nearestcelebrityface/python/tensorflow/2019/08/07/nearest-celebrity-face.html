@@ -15,7 +15,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-08-07T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"Deep Learning Techniques used to verify and recognize faces can also be extended to replicate Facebook apps saying which celebrity do you look like","@type":"BlogPosting","headline":"Nearest Celebrity Face using Deep Learning","url":"https://soumik12345.github.io/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html","datePublished":"2019-08-07T00:00:00-05:00","dateModified":"2019-08-07T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://soumik12345.github.io/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html"},"@context":"https://schema.org"}</script>
+{"headline":"Nearest Celebrity Face using Deep Learning","description":"Deep Learning Techniques used to verify and recognize faces can also be extended to replicate Facebook apps saying which celebrity do you look like","datePublished":"2019-08-07T00:00:00-05:00","dateModified":"2019-08-07T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://soumik12345.github.io/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html"},"url":"https://soumik12345.github.io/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/geekyrakshit-blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://soumik12345.github.io/geekyrakshit-blog/feed.xml" title="GeekyRakshit" /><!-- the google_analytics_id gets auto inserted from the config file -->
 
@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-08-07T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"Deep Learning Techniques used to verify and recognize faces can also be extended to replicate Facebook apps saying which celebrity do you look like","@type":"BlogPosting","headline":"Nearest Celebrity Face using Deep Learning","url":"https://soumik12345.github.io/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html","datePublished":"2019-08-07T00:00:00-05:00","dateModified":"2019-08-07T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://soumik12345.github.io/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html"},"@context":"https://schema.org"}</script>
+{"headline":"Nearest Celebrity Face using Deep Learning","description":"Deep Learning Techniques used to verify and recognize faces can also be extended to replicate Facebook apps saying which celebrity do you look like","datePublished":"2019-08-07T00:00:00-05:00","dateModified":"2019-08-07T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://soumik12345.github.io/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html"},"url":"https://soumik12345.github.io/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -119,7 +119,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      6 min read
     
 </span></p>
 
@@ -161,6 +161,10 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h2"><a href="#face-recognition">Face Recognition</a></li>
 <li class="toc-entry toc-h2"><a href="#one-shot-learning">One-Shot Learning</a></li>
+<li class="toc-entry toc-h2"><a href="#siamese-networks">Siamese Networks</a></li>
+<li class="toc-entry toc-h2"><a href="#training-a-siamese-network">Training a Siamese Network</a></li>
+<li class="toc-entry toc-h2"><a href="#learning-objective">Learning Objective</a></li>
+<li class="toc-entry toc-h2"><a href="#extending-the-idea-to-nearest-celebrity-face">Extending the Idea to Nearest Celebrity Face</a></li>
 </ul>
 </li>
 </ul><h1 id="nearest-celebrity-face-using-deep-learning">
@@ -208,6 +212,140 @@ window.onload = wrap_img;
 <strong>D(image1, image2) &lt;= τ means images are same, and</strong><br>
 <strong>D(image1, image2) &gt; τ means images are different</strong><br>
 </center>
+
+<h2 id="siamese-networks">
+<a class="anchor" href="#siamese-networks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Siamese Networks</h2>
+
+<p>The job of the function D is to learn the level of difference between two different images of faces. A nice way to do this is by using Siamese Networks. While a traditional ConvNet consists of Convolutional layers followed by Fully Connected or Dense Layers which are then fed into a Softmax function to perform classification, in case of a Siamese Network, there is no Softmax unit, instead the last Dense layer acts as the output layers which gives a list or vector of numbers. Let us call the outputs for images <code class="highlighter-rouge">x_1</code> and <code class="highlighter-rouge">x_2</code>, <code class="highlighter-rouge">f(x_1)</code> and <code class="highlighter-rouge">f(x_2)</code> respectively. Let’s say that the output layer has 128 fully connected units, hence, <code class="highlighter-rouge">f(x_1)</code> and <code class="highlighter-rouge">f(x_2)</code> will each be a vector of <code class="highlighter-rouge">128</code> numbers. <code class="highlighter-rouge">f(x_1)</code> and <code class="highlighter-rouge">f(x_2)</code> are called the Encoding of <code class="highlighter-rouge">x_1</code> and <code class="highlighter-rouge">x_2</code> respectively.</p>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/nearest-celeb-face/img_3.png">
+    </center>
+</figure>
+
+<p>If we believe the encodings to be a good enough representation of the input images, we can define the function D as the square of norm of the difference between the Encodings.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$$D(x_{1}, x_{2}) =</td>
+      <td> </td>
+      <td>f(x_{1}) - f(x_{2})</td>
+      <td> </td>
+      <td>^{2}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now the question comes that how do we train such a network. Since the same network is used to compute the Encodings from two different images, we have to train the parameters so that the trained network defines as accurate Encoding.</p>
+
+<h2 id="training-a-siamese-network">
+<a class="anchor" href="#training-a-siamese-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Training a Siamese Network</h2>
+
+<p>One way to learn the parameters of the neural network so that it gives you an accurate enough encoding for the images is to define an applied gradient descent on the <strong>Triplet Loss Function</strong>. In this case, we will have an anchor image, a positive image (the same person as the anchor image) and a negative image (a different person from the anchor image). Now we train the Siamese Network so that the distance between the anchor and the positive image is minimized. This also increases the distance between the anchor and the negative image is maximized. The fact that at each instance, we are looking at three images gives rise to the terminology Triplet Loss. The dataset, in this case, should consist of multiple triplets of Anchor, Positive and Negative Images.</p>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/nearest-celeb-face/img_4.jpg">
+    </center>
+</figure>
+
+<h2 id="learning-objective">
+<a class="anchor" href="#learning-objective" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learning Objective</h2>
+
+<p>For Positive Image,</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$$D(A, P) =</td>
+      <td> </td>
+      <td>f(A) - f(P)</td>
+      <td> </td>
+      <td>^{2}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For Negative Image,</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$$D(A, N) =</td>
+      <td> </td>
+      <td>f(A) - f(N)</td>
+      <td> </td>
+      <td>^{2}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Learning Objective is</p>
+
+<p>$$D(A, P) - D(A, N) + \alpha \leq 0</p>
+
+<p>where <strong>α</strong> is defined as a margin and the Loss Function is given as</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$$loss = \sum_{i=1}^{n} max(</td>
+      <td> </td>
+      <td>f(A_{i}) - f(P_{i})</td>
+      <td> </td>
+      <td>^{2} -</td>
+      <td> </td>
+      <td>f(A_{i}) - f(P_{i})</td>
+      <td> </td>
+      <td>^{2} + \alpha, 0)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>where <strong>n</strong> is the number of triplets in the dataset.</p>
+
+<p>All the ideas till this point have been presented in the paper <a href="https://arxiv.org/abs/1503.03832">FaceNet</a> by Florian Schroff, Dmitry Kalinichenko, and James Philbin.</p>
+
+<p>After having trained the FaceNet on a large Triplet Dataset, we can use it to verify any face. Now, Atul would only need to store the Encodings of the faces of Abhik and Avishek. Then he would have to decide upon the value of Similarity Threshold τ. Whenever someone approaches the door, his face will be localized and passed through the FaceNet. If their D value is less than τ then it is a match!!!</p>
+
+<h2 id="extending-the-idea-to-nearest-celebrity-face">
+<a class="anchor" href="#extending-the-idea-to-nearest-celebrity-face" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extending the Idea to Nearest Celebrity Face</h2>
+
+<p>I always wondered about those Facebook applications which used to predict stuff like which Celebrity or Footballer you look like. I tried building a similar application using the idea of FaceNet. Instead of keeping images of existing people to be verified in the database, I collected images of famous celebrities from Google Images, closely cropped their faces and stored their Encodings in the database. The Encodings were generated by a pre-trained FaceNet with an Inception backbone. Now theoretically, if I input some of my friends’ faces, they should ideally match the closest image in the database. Well, I tried implementing it and the results were hilarious 😂</p>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/nearest-celeb-face/img_0.png">
+    </center>
+</figure>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/nearest-celeb-face/img_5.png">
+    </center>
+</figure>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/nearest-celeb-face/img_6.png">
+    </center>
+</figure>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/nearest-celeb-face/img_7.png">
+    </center>
+</figure>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/nearest-celeb-face/img_8.png">
+    </center>
+</figure>
+
+<p>The project can be found at <a href="https://github.com/soumik12345/Nearest-Celebrity-Face">https://github.com/soumik12345/Nearest-Celebrity-Face</a>. If you like the project and found the results to be hilarious, please leave a star on the Github repository. For more such exciting articles, stay tuned at http://geekyrakshit.com.</p>
 
   </div><a class="u-url" href="/geekyrakshit-blog/computervision/deeplearning/facenet/inception/keras/nearestcelebrityface/python/tensorflow/2019/08/07/nearest-celebrity-face.html" hidden></a>
 </article>
