@@ -57,7 +57,7 @@ Let us convolve V with a tensor of shape ($$D_{V}$$, $$D_{V}$$, N) or N tensors 
 
 Let us count the number of multiplication operations for this operation.
 
-Number of multiplication operations for a single stride across a single channel = $$D_{k} * $$D_{k}$$.
+Number of multiplication operations for a single stride across a single channel = $$D_{k} * D_{k}$$.
 
 For M channels in the initial volume, the number of multiplication operations = $$(D_{k})^{2} * M$$.
 
@@ -66,3 +66,54 @@ Sliding the kernel over a volume of ($$D_{V}$$, $$D_{V}$$, M), we get a tensor o
 Since there are N channels in the convolutional kernel, this operation is repeated N times. Hence, the total number of multiplication operations for the above convolution operation = $$N * (D_{G})^{2} * (D_{k})^{2} * M$$.
 
 Now, let us see how using an alternate form of the vanilla convolution operation, we can reduce time complexity.
+
+## Depthwise Separable Convolution
+
+In the vanilla convolution operation all, the kernel is applied to all the channels of the input volume. However, Depthwise Separable Convolutions breaks down the whole operation into 2 steps:
+
+1. Depthwise Convolution or the Filtering Stage
+2. Pointwise Convolution or the Combination Stage
+
+### Depthwise Convolutions
+
+Let us consider the same input volume ($$D_{V}$$, $$D_{V}$$, M) convolving with M ($$D_{K}$$, $$D_{K}$$) kernels. A single convolution with a single kernel gives a volume of ($$D_{G}$$, $$D_{G}$$, 1). Repeating this N times, we get N such tensors and stacking them up channel-wise, we get a single tensor of shape ($$D_{G}$$, $$D_{G}$$, M).
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/dsc/img_5.png">
+    </center>
+</figure>
+
+Now, the number of multiplication operations for a single kernel convolving over a single input channel = $$D_{K} * D_{K}$$. When the convolution is applied over an entire input volume
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/dsc/img_6.png">
+    </center>
+</figure>
+
+Let us now find the computational complexity for Depthwise Convolution.
+
+The number of multiplication operations for the convolution of a single ($$D_{K}$$, $$D_{K}$$) kernel over a single stride over the input volume = $$(D_{K})^{2}$$.
+
+Since the output shape is ($$D_{G}$$, $$D_{G}$$), the number of multiplication operations for convolving over a single channel of the input image = $$(D_{G})^{2} * (D_{K})^{2}$$.
+
+Since there are $$M$$ number of kernels for convolving with $$M$$ number of channels, the number of multiplication operations for Depthwise Convolution operation = $$M * (D_{G})^{2} * (D_{K})^{2}$$.
+
+## Pointwise Convolution
+
+For Pointwise Convolution, we convolve the ($$D_{G}$$, $$D_{G}$$, M) volume with $$N$$ kernels of (1, 1, $$M$$) producing the desired output of shape ($$D_{V}$$, $$D_{V}$$, N).
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/dsc/img_7.png">
+    </center>
+</figure>
+
+We will now find the computational complexity of the Pointwise Convolution operation.
+
+For convolving a single kernel over a single stride of the input image, the number of multiplication operations = $$1 * 1 * M$$ = $$M$$.
+
+For convolving a single kernel over a single channel of the input tensor producing a shape of ($$D_{G}$$, $$D_{G}$$), the number of multiplication operations = $$M * (D_{G})^{2}$$.
+
+For convolving $$N$$ number of kernels over the whole of input tensor, the number of multiplication operations = $$N * M * (D_{G})^{2}$$.
