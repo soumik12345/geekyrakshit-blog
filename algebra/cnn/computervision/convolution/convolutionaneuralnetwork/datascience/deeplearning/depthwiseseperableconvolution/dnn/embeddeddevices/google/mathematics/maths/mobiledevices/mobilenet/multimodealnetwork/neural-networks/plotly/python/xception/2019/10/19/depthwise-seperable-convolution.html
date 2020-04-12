@@ -193,8 +193,6 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#depthwise-separable-convolutions-in-deep-learning">Depthwise Separable Convolutions in Deep Learning</a>
-<ul>
 <li class="toc-entry toc-h2"><a href="#the-vanilla-convolution-operation">The Vanilla Convolution Operation</a></li>
 <li class="toc-entry toc-h2"><a href="#computational-complexity-of-convolution">Computational Complexity of Convolution</a></li>
 <li class="toc-entry toc-h2"><a href="#depthwise-separable-convolution">Depthwise Separable Convolution</a>
@@ -204,12 +202,7 @@ window.onload = wrap_img;
 </li>
 <li class="toc-entry toc-h2"><a href="#pointwise-convolution">Pointwise Convolution</a></li>
 <li class="toc-entry toc-h2"><a href="#comparing-vanilla-convolution-with-depthwise-separable-convolution">Comparing Vanilla Convolution with Depthwise Separable Convolution</a></li>
-</ul>
-</li>
-</ul><h1 id="depthwise-separable-convolutions-in-deep-learning">
-<a class="anchor" href="#depthwise-separable-convolutions-in-deep-learning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Depthwise Separable Convolutions in Deep Learning</h1>
-
-<p>The Convolution operation is a widely used function in Functional Analysis, Image Processing Deep Learning. The convolution operation when applied on two functions f and g, produces a third function expressing how the shape of one is modified by the other. While it is immensely popular, especially in the domain of Deep Learning, the vanilla convolution operation is quite expensive computationally. Modern Neural Network architectures such as <a href="https://arxiv.org/abs/1610.02357"><strong>Xception</strong></a> and <a href="https://arxiv.org/abs/1704.04861"><strong>MobileNet</strong></a> use a special type of Convolution called <strong>Depthwise Separable Convolution</strong> to speed up training and inference, especially on Mobile and Embedded Devices.</p>
+</ul><p>The Convolution operation is a widely used function in Functional Analysis, Image Processing Deep Learning. The convolution operation when applied on two functions f and g, produces a third function expressing how the shape of one is modified by the other. While it is immensely popular, especially in the domain of Deep Learning, the vanilla convolution operation is quite expensive computationally. Modern Neural Network architectures such as <a href="https://arxiv.org/abs/1610.02357"><strong>Xception</strong></a> and <a href="https://arxiv.org/abs/1704.04861"><strong>MobileNet</strong></a> use a special type of Convolution called <strong>Depthwise Separable Convolution</strong> to speed up training and inference, especially on Mobile and Embedded Devices.</p>
 
 <h2 id="the-vanilla-convolution-operation">
 <a class="anchor" href="#the-vanilla-convolution-operation" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Vanilla Convolution Operation</h2>
