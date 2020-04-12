@@ -29,17 +29,6 @@
   
 
   
-      ,"page2": {
-          "title": "Posts",
-          "content": "All my posts .",
-          "url": "https://soumik12345.github.io/geekyrakshit-blog/posts/",
-          "relUrl": "/posts/",
-          "date": ""
-      }
-      
-  
-
-  
   
 
   
@@ -59,7 +48,7 @@
   
 
   
-      ,"page10": {
+      ,"page9": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://soumik12345.github.io/geekyrakshit-blog/robots.txt",
