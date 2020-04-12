@@ -117,3 +117,29 @@ For convolving a single kernel over a single stride of the input image, the numb
 For convolving a single kernel over a single channel of the input tensor producing a shape of ($$D_{G}$$, $$D_{G}$$), the number of multiplication operations = $$M * (D_{G})^{2}$$.
 
 For convolving $$N$$ number of kernels over the whole of input tensor, the number of multiplication operations = $$N * M * (D_{G})^{2}$$.
+
+## Comparing Vanilla Convolution with Depthwise Separable Convolution
+
+Let us take the ratios between the Complexity of the Vanilla Convolution () operation and that of the Depthwise Separable Convolution operation.
+
+$$\frac{conv_{vanilla}}{conv_{dsc}} = \frac{N * (D_{G})^{2} * (D_{K})^{2} * M}{M * (D_{G})^{2} * [(D_{K})^{2} + N]}$$
+
+or,
+
+$$\frac{conv_{vanilla}}{conv_{dsc}} = \frac{(D_{K})^{2} * M}{(D_{K})^{2} + N}$$
+
+or,
+
+$$\frac{conv_{vanilla}}{conv_{dsc}} = \frac{1}{(D_{K})^{2}} + \frac{1}{N}$$
+
+Now, let us consider $$N = 3$$ and `DK = [2 ** i for i in range(5, 11)]` and visualize how the ratio varies.
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/dsc/img_8.png">
+    </center>
+</figure>
+
+Note that the ratio of Time Complexity of Vanilla Convolution to that of Depthwise Separable Convolution is always much less than 1 and it decreases with increasing Kernel Dimension, making it much faster compared to Vanilla Convolution.
+
+Depthwise Separable Convolutions are widely used in building fast CNN architectures such as **Xception**, **Mobilenet** and [**Multi-modal Neural Networks**](https://arxiv.org/abs/1808.04456). In the upcoming articles, we would discuss these two articles in detail.
