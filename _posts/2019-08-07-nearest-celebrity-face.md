@@ -40,10 +40,4 @@ There are several demerits to this approach such as
 
 So, in order to make this work, Atul thinks of a different approach. Instead of building a model to differentiate various faces, he decides to build a model that would learn a Similarity Function D. Then that would say how similar the current image is with a mugshot of Abhik that is present in his dataset and he decides upon a similarity threshold τ upon meeting which the door will open.
 
-<center>
-    <pre>
-        <code>D(image1, image2) = Degree of Difference between the Images
-D(image1, image2) <= τ means images are same, and
-D(image1, image2) > τ means images are different</code>
-    </pre>
-</center>
+$$mean = \frac{\displaystyle\sum_{i=1}^{n} x_{i}}{n}$$
