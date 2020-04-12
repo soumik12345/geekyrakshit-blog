@@ -42,10 +42,8 @@ So, in order to make this work, Atul thinks of a different approach. Instead of 
 
 <center>
     <pre>
-        <code>
-            D(image1, image2) = Degree of Difference between the Images
-            D(image1, image2) <= τ means images are same, and
-            D(image1, image2) > τ means images are different
-        </code>
+        <code>D(image1, image2) = Degree of Difference between the Images
+D(image1, image2) <= τ means images are same, and
+D(image1, image2) > τ means images are different</code>
     </pre>
 </center>
