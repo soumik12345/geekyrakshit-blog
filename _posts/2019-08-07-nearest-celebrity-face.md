@@ -5,6 +5,8 @@ description: Deep Learning Techniques used to verify and recognize faces can als
 categories: [ComputerVision, DeepLearning, FaceNet, Inception, Keras, NearestCelebrityFace, Python, Tensorflow]
 title: Nearest Celebrity Face using Deep Learning
 ---
+![](https://raw.githubusercontent.com/soumik12345/Nearest-Celebrity-Face/master/Results/Figure_1-1.png)
+
 # Nearest Celebrity Face using Deep Learning
 
 ## Face Recognition
