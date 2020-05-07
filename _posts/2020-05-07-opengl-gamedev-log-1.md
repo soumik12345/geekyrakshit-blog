@@ -90,3 +90,6 @@ Following are the steps to set up GLEW with Visual Studio 2019 on Windows 10:
 3. Copy the files in the `include/GL` directory in the unzipped GLEW directory and past them inside `Linking/GLEW/inlcude` folder.
 4. Copy the files from the `lib/Release/Win32` in the unzipped GLEW directory and paste them inside `Linking/GLEW/lib`.
 5. Copy the file `bin/Release/Win32/glew32.dll` from the unzipped GLEW directory and paste them inside the project root folder.
+6. Link the `include` and `lib` directories in a fashion similar to GLFW.
+7. Add `glew32.lib` to the list of Additional Dependencies.
+8. Make a sanity check: inside a `cpp` file try to include `glew.h`, you should be getting autocomplete suggestions.
