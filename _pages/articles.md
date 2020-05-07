@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Article Series
+title: Articles
 permalink: /articles/
 ---
 
