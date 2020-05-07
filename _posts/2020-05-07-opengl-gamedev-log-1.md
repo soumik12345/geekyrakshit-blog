@@ -19,7 +19,7 @@ Following are the steps to set up GLFW with Visual Studio 2019 on Windows 10:
 
 <figure class="image">
     <center>
-        <img src="{{site.baseurl}}/images/opnengl-logs/log1/1.png">
+        <img src="{{site.baseurl}}/images/opengl-logs/log_1_1.png">
         <figcaption>Which of us speaks the best Crox will be decided upon by Atul’s algorithm!!!</figcaption>
     </center>
 </figure>
