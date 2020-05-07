@@ -20,6 +20,29 @@ Following are the steps to set up GLFW with Visual Studio 2019 on Windows 10:
 <figure class="image">
     <center>
         <img src="{{site.baseurl}}/images/opengl-logs/log_1_1.png">
-        <figcaption>Which of us speaks the best Crox will be decided upon by Atul’s algorithm!!!</figcaption>
+        <figcaption>Download the 32 Bit pre-compiled binaries for Windows</figcaption>
+    </center>
+</figure>
+
+2. Create an Empty project in Visual Studio 2019.
+3. Unzip the GLFW binaries.
+4. Create the following directory structure:
+    ```
+    Linking
+    |
+    -------GLFW
+            |
+            ----inlcude (copy contents of glfw-zip/inlcude)
+            |
+            ----lib (copy contents of files from glfw-zip lib-vc2019 folder)
+    ```
+5. Move the `Linking` folder to the project folder, keep it in the same location as the `sln` file.
+6. Move the `dll` file (`dll` stands for **Dynamically Lined Libraries**) present in `Linking/GLFW/lib` to the root of the project where the source files will be present.
+7. Right-click on the project on Visual Studio and open `Properties`.
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/opengl-logs/log_1_2.png">
+        <figcaption>Open Properties</figcaption>
     </center>
 </figure>
