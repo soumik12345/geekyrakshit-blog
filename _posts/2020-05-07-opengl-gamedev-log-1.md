@@ -17,12 +17,12 @@ Following are the steps to set up GLFW with Visual Studio 2019 on Windows 10:
 1. Download 32 bit pre-compiled GLFW binaries for Windows from [https://www.glfw.org/download.html](https://www.glfw.org/download.html).
 
 
-<figure class="image">
-    <center>
-        <img src="{{site.baseurl}}/images/opengl-logs/log_1_1.png">
-        <figcaption>Download the 32 Bit pre-compiled binaries for Windows</figcaption>
-    </center>
-</figure>
+    <figure class="image">
+        <center>
+            <img src="{{site.baseurl}}/images/opengl-logs/log_1_1.png">
+            <figcaption>Download the 32 Bit pre-compiled binaries for Windows</figcaption>
+        </center>
+    </figure>
 
 2. Create an Empty project in Visual Studio 2019.
 3. Unzip the GLFW binaries.
