@@ -4,7 +4,7 @@ layout: post
 description: OpenGL GameDev Log 1, setting Up GLFW
 categories: [gamedev, visualstudio]
 title: OpenGL GameDev Log 1 Setting Up GLFW
-image: images/nearest-celeb-face/img_0.png
+image: images/opengl-logs/logo.png
 ---
 # OpenGL GameDev Log 1: Setting Up GLFW
 
@@ -38,11 +38,20 @@ Following are the steps to set up GLFW with Visual Studio 2019 on Windows 10:
     ```
 5. Move the `Linking` folder to the project folder, keep it in the same location as the `sln` file.
 6. Move the `dll` file (`dll` stands for **Dynamically Lined Libraries**) present in `Linking/GLFW/lib` to the root of the project where the source files will be present.
-7. Right-click on the project on Visual Studio and open `Properties`.
+7. Right-click on the project on Visual Studio and open `Properties` or simply hit `Alt+Enter` selecting the project on Visual Studio.
 
 <figure class="image">
     <center>
         <img src="{{site.baseurl}}/images/opengl-logs/log_1_2.png">
         <figcaption>Open Properties</figcaption>
+    </center>
+</figure>
+
+8. Make sure `Configuration` and `Platform` are set respectively to `All Configurations` and `Active(Win32)` respectively.
+9. Select `C/C++` property from the list of `Configuration Properties` on the left side of the dialog box.
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/opengl-logs/log_1_3.png">
     </center>
 </figure>
