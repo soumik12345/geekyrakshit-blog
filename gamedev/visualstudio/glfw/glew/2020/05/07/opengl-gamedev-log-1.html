@@ -248,6 +248,9 @@ window.onload = wrap_img;
   <li>Copy the files in the <code class="highlighter-rouge">include/GL</code> directory in the unzipped GLEW directory and past them inside <code class="highlighter-rouge">Linking/GLEW/inlcude</code> folder.</li>
   <li>Copy the files from the <code class="highlighter-rouge">lib/Release/Win32</code> in the unzipped GLEW directory and paste them inside <code class="highlighter-rouge">Linking/GLEW/lib</code>.</li>
   <li>Copy the file <code class="highlighter-rouge">bin/Release/Win32/glew32.dll</code> from the unzipped GLEW directory and paste them inside the project root folder.</li>
+  <li>Link the <code class="highlighter-rouge">include</code> and <code class="highlighter-rouge">lib</code> directories in a fashion similar to GLFW.</li>
+  <li>Add <code class="highlighter-rouge">glew32.lib</code> to the list of Additional Dependencies.</li>
+  <li>Make a sanity check: inside a <code class="highlighter-rouge">cpp</code> file try to include <code class="highlighter-rouge">glew.h</code>, you should be getting autocomplete suggestions.</li>
 </ol>
 
   </div><a class="u-url" href="/geekyrakshit-blog/gamedev/visualstudio/glfw/glew/2020/05/07/opengl-gamedev-log-1.html" hidden></a>
