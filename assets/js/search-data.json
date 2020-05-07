@@ -148,6 +148,17 @@
   
 
   
+      ,"page1": {
+          "title": "Article Series",
+          "content": "Posts .",
+          "url": "https://soumik12345.github.io/geekyrakshit-blog/article-series/",
+          "relUrl": "/article-series/",
+          "date": ""
+      }
+      
+  
+
+  
 
   
   
@@ -160,7 +171,7 @@
   
 
   
-      ,"page6": {
+      ,"page7": {
           "title": "YouTube",
           "content": "Channel: Soumik Rakshit .",
           "url": "https://soumik12345.github.io/geekyrakshit-blog/youtube/",
@@ -180,7 +191,7 @@
   
 
   
-      ,"page10": {
+      ,"page11": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://soumik12345.github.io/geekyrakshit-blog/robots.txt",
