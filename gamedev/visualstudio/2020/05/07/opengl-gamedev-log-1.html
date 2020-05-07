@@ -158,7 +158,33 @@ window.onload = wrap_img;
 <figure class="image">
     <center>
         <img src="/geekyrakshit-blog/images/opengl-logs/log_1_1.png">
-        <figcaption>Which of us speaks the best Crox will be decided upon by Atul’s algorithm!!!</figcaption>
+        <figcaption>Download the 32 Bit pre-compiled binaries for Windows</figcaption>
+    </center>
+</figure>
+
+<ol>
+  <li>Create an Empty project in Visual Studio 2019.</li>
+  <li>Unzip the GLFW binaries.</li>
+  <li>Create the following directory structure:
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> Linking
+ |
+ -------GLFW
+         |
+         ----inlcude (copy contents of glfw-zip/inlcude)
+         |
+         ----lib (copy contents of files from glfw-zip lib-vc2019 folder)
+</code></pre></div>    </div>
+  </li>
+  <li>Move the <code class="highlighter-rouge">Linking</code> folder to the project folder, keep it in the same location as the <code class="highlighter-rouge">sln</code> file.</li>
+  <li>Move the <code class="highlighter-rouge">dll</code> file (<code class="highlighter-rouge">dll</code> stands for <strong>Dynamically Lined Libraries</strong>) present in <code class="highlighter-rouge">Linking/GLFW/lib</code> to the root of the project where the source files will be present.</li>
+  <li>Right-click on the project on Visual Studio and open <code class="highlighter-rouge">Properties</code>.</li>
+</ol>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/opengl-logs/log_1_2.png">
+        <figcaption>Open Properties</figcaption>
     </center>
 </figure>
 
