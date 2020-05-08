@@ -121,7 +121,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      5 min read
     
 </span></p>
 
@@ -153,9 +153,44 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#opengl-gamedev-log-2-setting-up-dependencies-on-macos">OpenGL GameDev Log 2: Setting up Dependencies on MacOS</a></li>
-</ul><h1 id="opengl-gamedev-log-2-setting-up-dependencies-on-macos">
-<a class="anchor" href="#opengl-gamedev-log-2-setting-up-dependencies-on-macos" aria-hidden="true"><span class="octicon octicon-link"></span></a>OpenGL GameDev Log 2: Setting up Dependencies on MacOS</h1>
+<li class="toc-entry toc-h2"><a href="#opengl-gamedev-log-2-setting-up-dependencies-on-macos">OpenGL GameDev Log 2: Setting up Dependencies on MacOS</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#glfw">GLFW</a></li>
+<li class="toc-entry toc-h3"><a href="#glew">GLEW</a></li>
+<li class="toc-entry toc-h3"><a href="#sdl">SDL</a></li>
+<li class="toc-entry toc-h3"><a href="#sfml">SFML</a></li>
+<li class="toc-entry toc-h3"><a href="#installation-steps">Installation steps</a></li>
+<li class="toc-entry toc-h3"><a href="#soil2">SOIL2</a></li>
+<li class="toc-entry toc-h3"><a href="#installation-steps-for-soil2">Installation steps for SOIL2</a></li>
+</ul>
+</li>
+</ul><h2 id="opengl-gamedev-log-2-setting-up-dependencies-on-macos">
+<a class="anchor" href="#opengl-gamedev-log-2-setting-up-dependencies-on-macos" aria-hidden="true"><span class="octicon octicon-link"></span></a>OpenGL GameDev Log 2: Setting up Dependencies on MacOS</h2>
+
+<h3 id="glfw">
+<a class="anchor" href="#glfw" aria-hidden="true"><span class="octicon octicon-link"></span></a>GLFW</h3>
+
+<p><a href="https://www.glfw.org/">GLFW</a> is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop. It provides a simple API for creating windows, contexts and surfaces, receiving input and events.</p>
+
+<h3 id="glew">
+<a class="anchor" href="#glew" aria-hidden="true"><span class="octicon octicon-link"></span></a>GLEW</h3>
+
+<p><a href="http://glew.sourceforge.net/">The OpenGL Extension Wrangler Library</a> or GLEW in short, is a cross-platform open-source C/C++ extension loading library. GLEW provides efficient run-time mechanisms for determining which OpenGL extensions are supported on the target platform. OpenGL core and extension functionality is exposed in a single header file. GLEW has been tested on a variety of operating systems, including Windows, Linux, Mac OS X, FreeBSD, Irix, and Solaris.</p>
+
+<h3 id="sdl">
+<a class="anchor" href="#sdl" aria-hidden="true"><span class="octicon octicon-link"></span></a>SDL</h3>
+
+<p>Simple DirectMedia Layer (SDL) is a cross-platform software development library designed to provide a hardware abstraction layer for computer multimedia hardware components.</p>
+
+<h3 id="sfml">
+<a class="anchor" href="#sfml" aria-hidden="true"><span class="octicon octicon-link"></span></a>SFML</h3>
+
+<p>Simple and Fast Multimedia Library (SFML) is a cross-platform software development library designed to provide a simple application programming interface (API) to various multimedia components in computers. It is written in C++ with bindings available for C, Crystal, D, Euphoria, Go, Java, Julia, .NET, Nim, OCaml, Python, Ruby, and Rust.</p>
+
+<h3 id="installation-steps">
+<a class="anchor" href="#installation-steps" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation steps</h3>
+
+<p>GLFW is written in C and supports Windows, macOS, the X Window System and the Wayland protocol.</p>
 
 <p>Following are the steps to set up dependencies with Xcode on MacOS:</p>
 
@@ -393,6 +428,32 @@ window.onload = wrap_img;
     <figcaption>Once you close this window, your console would say <code>Everything Succeeded Program ended with exit code: 0</code></figcaption>
 </figure>
   </li>
+</ol>
+
+<h3 id="soil2">
+<a class="anchor" href="#soil2" aria-hidden="true"><span class="octicon octicon-link"></span></a>SOIL2</h3>
+
+<p><strong>SOIL2</strong> is a fork of the Jonathan Dummer’s <a href="http://www.lonesock.net/soil.html">Simple OpenGL Image Library</a>.</p>
+
+<p><strong>SOIL2</strong> is a tiny C library used primarily for uploading textures into OpenGL.
+It is based on <a href="http://www.nothings.org/stb_image.c">stb_image</a>, the public domain code from Sean Barrett.</p>
+
+<p><strong>SOIL2</strong> extended stb_image to DDS files, and to perform common functions needed in loading OpenGL textures.</p>
+
+<p><strong>SOIL2</strong> can also be used to save and load images in a variety of formats (useful for loading height maps, non-OpenGL applications, etc.)</p>
+
+<h3 id="installation-steps-for-soil2">
+<a class="anchor" href="#installation-steps-for-soil2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation steps for SOIL2</h3>
+
+<ol>
+  <li>
+    <p>Download the premake 5 (alpha) binaries for MacOS from <a href="https://premake.github.io/download.html#v5">https://premake.github.io/download.html#v5</a> and unzip. It contains an executable file called <code class="highlighter-rouge">premake</code>.</p>
+  </li>
+  <li><code class="highlighter-rouge">git clone https://github.com/SpartanJ/SOIL2</code></li>
+  <li>Copy <code class="highlighter-rouge">premake</code> inside <code class="highlighter-rouge">soil2</code> repository.</li>
+  <li><code class="highlighter-rouge">./premake xcode4</code></li>
+  <li>Copy the <code class="highlighter-rouge">SOIL2.h</code> file from the soil source directory to your source directory and link it.</li>
+  <li>For sanity check, inlcude <code class="highlighter-rouge">SOIL2.h</code> in a <code class="highlighter-rouge">cpp</code> file and check whether autocompletion works for <code class="highlighter-rouge">SOIL</code> or not.</li>
 </ol>
 
   </div><a class="u-url" href="/geekyrakshit-blog/gamedev/visualstudio/glfw/glew/sdl/sfml/2020/05/08/opengl-gamedev-log-2.html" hidden></a>
