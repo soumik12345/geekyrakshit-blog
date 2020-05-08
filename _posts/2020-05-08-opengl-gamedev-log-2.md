@@ -6,7 +6,27 @@ categories: [gamedev, visualstudio, glfw, glew, sdl, sfml]
 title: OpenGL GameDev Log 2 Setting Up Dependencies on MacOS
 image: images/opengl-logs/logo.png
 ---
-# OpenGL GameDev Log 2: Setting up Dependencies on MacOS
+## OpenGL GameDev Log 2: Setting up Dependencies on MacOS
+
+### GLFW
+
+[GLFW](https://www.glfw.org/) is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop. It provides a simple API for creating windows, contexts and surfaces, receiving input and events.
+
+### GLEW
+
+[The OpenGL Extension Wrangler Library](http://glew.sourceforge.net/) or GLEW in short, is a cross-platform open-source C/C++ extension loading library. GLEW provides efficient run-time mechanisms for determining which OpenGL extensions are supported on the target platform. OpenGL core and extension functionality is exposed in a single header file. GLEW has been tested on a variety of operating systems, including Windows, Linux, Mac OS X, FreeBSD, Irix, and Solaris.
+
+### SDL
+
+Simple DirectMedia Layer (SDL) is a cross-platform software development library designed to provide a hardware abstraction layer for computer multimedia hardware components.
+
+### SFML
+
+Simple and Fast Multimedia Library (SFML) is a cross-platform software development library designed to provide a simple application programming interface (API) to various multimedia components in computers. It is written in C++ with bindings available for C, Crystal, D, Euphoria, Go, Java, Julia, .NET, Nim, OCaml, Python, Ruby, and Rust.
+
+### Installation steps
+
+GLFW is written in C and supports Windows, macOS, the X Window System and the Wayland protocol.
 
 Following are the steps to set up dependencies with Xcode on MacOS:
 
@@ -236,3 +256,25 @@ Following are the steps to set up dependencies with Xcode on MacOS:
         </center>
         <figcaption>Once you close this window, your console would say <code>Everything Succeeded Program ended with exit code: 0</code></figcaption>
     </figure>
+
+
+### SOIL2
+
+**SOIL2** is a fork of the Jonathan Dummer's [Simple OpenGL Image Library](http://www.lonesock.net/soil.html).
+
+**SOIL2** is a tiny C library used primarily for uploading textures into OpenGL.
+It is based on [stb_image](http://www.nothings.org/stb_image.c), the public domain code from Sean Barrett.
+
+**SOIL2** extended stb_image to DDS files, and to perform common functions needed in loading OpenGL textures.
+
+**SOIL2** can also be used to save and load images in a variety of formats (useful for loading height maps, non-OpenGL applications, etc.)
+
+### Installation steps for SOIL2
+
+1. Download the premake 5 (alpha) binaries for MacOS from [https://premake.github.io/download.html#v5](https://premake.github.io/download.html#v5) and unzip. It contains an executable file called `premake`.
+
+2. `git clone https://github.com/SpartanJ/SOIL2`
+3. Copy `premake` inside `soil2` repository.
+4. `./premake xcode4`
+5. Copy the `SOIL2.h` file from the soil source directory to your source directory and link it.
+6. For sanity check, inlcude `SOIL2.h` in a `cpp` file and check whether autocompletion works for `SOIL` or not.
