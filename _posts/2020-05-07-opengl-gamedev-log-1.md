@@ -1,12 +1,12 @@
 ---
 toc: true
 layout: post
-description: OpenGL GameDev Log 1, detailed instructions for setting up and linking GLFW and GLEW with Visual Studio 2019.
+description: OpenGL GameDev Log 1, detailed instructions for setting up and linking GLFW and GLEW with Visual Studio 2019 on Windows 10.
 categories: [gamedev, visualstudio, glfw, glew]
 title: OpenGL GameDev Log 1 Setting Up Dependencies
 image: images/opengl-logs/logo.png
 ---
-# OpenGL GameDev Log 1: Setting up Dependencies
+# OpenGL GameDev Log 1: Setting up Dependencies on Windows
 
 ## Setting Up GLFW
 
