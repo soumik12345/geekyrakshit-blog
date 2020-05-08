@@ -1,8 +1,8 @@
 ---
 toc: true
 layout: post
-description: OpenGL GameDev Log 2, detailed instructions for setting up and linking GLFW and GLEW with Xcode on MacOS.
-categories: [gamedev, visualstudio, glfw, glew, sdl]
+description: OpenGL GameDev Log 2, detailed instructions for setting up and linking GLFW, GLEW, SDL and SFML with Xcode on MacOS.
+categories: [gamedev, visualstudio, glfw, glew, sdl, sfml]
 title: OpenGL GameDev Log 2 Setting Up Dependencies on MacOS
 image: images/opengl-logs/logo.png
 ---
@@ -15,6 +15,7 @@ Following are the steps to set up dependencies with Xcode on MacOS:
     - `brew install glew`
     - `brew install glfw3`
     - `brew install sdl2`
+    - `brew install sfml`
 3. Open Xcode and create a new empty project. Make sure to set the language as **C++**.
 4. Select the project, Go to `Build Settings` and look up `Search Paths`.
 
@@ -26,13 +27,14 @@ Following are the steps to set up dependencies with Xcode on MacOS:
 
 5. Add to `Header Search Paths` the path `/usr/local/include`.
 6. Now go to `Build Phases` and open up `Link Binary with Libraries`.
-7. Now we need to add the respective libraries. These are localed at `/usr/local/Cellar`.
+7. Now we need to add the respective libraries (`dylib` files). These are localed at `/usr/local/Cellar`.
 
     <figure class="image">
         <center>
             <img src="{{site.baseurl}}/images/opengl-logs/log_2_2.png">
         </center>
     </figure>
+
 8. In order to validate the installation, use the following code. The code explanation and breakdown  will be provided in a later post.
     ```c++
     #include <iostream>
@@ -166,6 +168,71 @@ Following are the steps to set up dependencies with Xcode on MacOS:
     <figure class="image">
         <center>
             <img src="{{site.baseurl}}/images/opengl-logs/log_2_4.png">
+        </center>
+        <figcaption>Once you close this window, your console would say <code>Everything Succeeded Program ended with exit code: 0</code></figcaption>
+    </figure>
+
+10. In order to validate the SFML installation, use the following code. The code explanation and breakdown  will be provided in a later post.
+
+    ```c++
+    #include <iostream>
+
+    #define GLEW_STATIC
+    #include "GL/glew.h"
+
+    #include <SFML/Window.hpp>
+
+    using namespace std;
+    using namespace sf;
+
+    const GLint WIDTH = 800, HEIGHT = 600;
+
+    int main() {
+        
+        ContextSettings settings;
+        settings.depthBits = 24;
+        settings.stencilBits = 8;
+        settings.majorVersion = 3;
+        settings.minorVersion = 3;
+        settings.attributeFlags = ContextSettings::Core;
+        
+        Window window(VideoMode(WIDTH, HEIGHT, 32), "Test", Style::Titlebar | Style::Close, settings);
+        
+        glewExperimental = GL_TRUE;
+        
+        if(glewInit() != GLEW_OK) {
+            cout << "Failed to initialize GLEW" << endl;
+            return -1;
+        }
+        
+        bool running = true;
+        
+        while(running) {
+            Event windowEvent;
+            while(window.pollEvent(windowEvent)) {
+                if(windowEvent.type == Event::Closed) {
+                    running = false;
+                    break;
+                }
+            }
+            glClearColor(0.3f, 0.2f, 0.1f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+            window.display();
+        }
+        
+        window.close();
+        
+        cout << "Everything Succeeded" << endl;
+        
+        return 0;
+    }
+    ```
+
+    This should produce a blank widow like the following:
+
+    <figure class="image">
+        <center>
+            <img src="{{site.baseurl}}/images/opengl-logs/log_2_5.png">
         </center>
         <figcaption>Once you close this window, your console would say <code>Everything Succeeded Program ended with exit code: 0</code></figcaption>
     </figure>
