@@ -3,7 +3,7 @@ toc: true
 layout: post
 description: OpenGL GameDev Log 2, detailed instructions for setting up and linking GLFW and GLEW with Xcode on MacOS.
 categories: [gamedev, visualstudio, glfw, glew, sdl]
-title: OpenGL GameDev Log 2 Setting Up Dependencies on Windows
+title: OpenGL GameDev Log 2 Setting Up Dependencies on MacOS
 image: images/opengl-logs/logo.png
 ---
 # OpenGL GameDev Log 2: Setting up Dependencies on MacOS
