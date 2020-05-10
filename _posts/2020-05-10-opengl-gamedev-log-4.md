@@ -7,7 +7,7 @@ title: OpenGL GameDev Log 4 Creating a Window
 image: images/opengl-logs/logo.png
 ---
 
-## Anatomy of the programm
+## Anatomy of the Program
 
 1. Create a header file in your project called `libs.h` and a C++ source file called `main.cpp`.
 
