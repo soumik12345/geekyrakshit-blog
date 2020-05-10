@@ -209,3 +209,40 @@ int main() {
 		return EXIT_FAILURE;
 	}
     ```
+
+## Main Loop
+
+The **Main Loop** or the **Game Loop** consists of a loop inside which all the cool stuff actually takes place. The anatomy of the Main Loop consists of the following:
+
+```c++
+while (true) {
+
+    // Input {
+    //
+    // }
+
+    // Update {
+    //
+    // }
+
+    // Draw {
+    //	clear canvas
+    //	update canvas	
+    // }
+}
+```
+
+Now comes the question that how long should the loop run (`while (true)` simply makes it an infinite loop) ? The answer is simple: till the window is kept open. So, we would modify the condition:
+
+```c++
+while (! glfwWindowShouldClose(window))
+```
+
+At this point in the program, if you attempt to close the window, you wouldn't be able to close it. So better not try it :smirk:.
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/opengl-logs/log_4_1.png">
+        <figcaption>If you have ignored my advice and already run the program, you can get rid of the unclosable window using the stop button in Visual Studio</figcaption>
+    </center>
+</figure>
