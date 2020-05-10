@@ -121,7 +121,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      7 min read
+      9 min read
     
 </span></p>
 
@@ -166,10 +166,16 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#end">End</a></li>
+<li class="toc-entry toc-h2"><a href="#making-the-window-resizable">Making the Window Resizable</a></li>
 <li class="toc-entry toc-h2"><a href="#complete-code">Complete Code</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#libsh">libs.h</a></li>
-<li class="toc-entry toc-h3"><a href="#maincpp">main.cpp</a></li>
+<li class="toc-entry toc-h3"><a href="#maincpp">main.cpp</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#non-resizable-window">Non-Resizable Window</a></li>
+<li class="toc-entry toc-h4"><a href="#resizable-window">Resizable Window</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul><h2 id="anatomy-of-the-program">
@@ -496,6 +502,21 @@ window.onload = wrap_img;
 
 <p>For ending the game, simply invoke <code class="highlighter-rouge">glfwTerminate()</code>. This function destroys all remaining windows and cursors, restores any modified gamma ramps and frees any other allocated resources.</p>
 
+<h2 id="making-the-window-resizable">
+<a class="anchor" href="#making-the-window-resizable" aria-hidden="true"><span class="octicon octicon-link"></span></a>Making the Window Resizable</h2>
+
+<p>First of all, we need to set <code class="highlighter-rouge">GLFW_RESIZABLE</code> to <code class="highlighter-rouge">GL_TRUE</code>. As of now, the heigh and width of the framebuffer are static and needs to be varied dynamically as the window is scaled. For this, we would need to write a callback for resizing:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">resize_callback</span><span class="p">(</span><span class="n">GLFWwindow</span><span class="o">*</span> <span class="n">window</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fbW</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fbH</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fbW</span><span class="p">,</span> <span class="n">fbH</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now instead of getting the framebuffer dimensions using <code class="highlighter-rouge">glfwGetFramebufferSize</code> and <code class="highlighter-rouge">glViewport</code>, we would use:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glfwSetFramebufferSizeCallback</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">resize_callback</span><span class="p">);</span>
+</code></pre></div></div>
+
 <h2 id="complete-code">
 <a class="anchor" href="#complete-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Complete Code</h2>
 
@@ -525,6 +546,11 @@ window.onload = wrap_img;
 
 <h3 id="maincpp">
 <a class="anchor" href="#maincpp" aria-hidden="true"><span class="octicon octicon-link"></span></a>main.cpp</h3>
+
+<h4 id="non-resizable-window">
+<a class="anchor" href="#non-resizable-window" aria-hidden="true"><span class="octicon octicon-link"></span></a>Non-Resizable Window</h4>
+
+<p><strong>Github Commit:</strong> <a href="https://github.com/soumik12345/OpenGL-Track/tree/e2214d43db9128976bb98ddd5ba3b73314e8582a">https://github.com/soumik12345/OpenGL-Track/tree/e2214d43db9128976bb98ddd5ba3b73314e8582a</a></p>
 
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "libs.h"
 </span>
@@ -571,6 +597,120 @@ window.onload = wrap_img;
 
 	<span class="c1">// Prepare Viewport</span>
 	<span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameBufferWidth</span><span class="p">,</span> <span class="n">frameBufferHeight</span><span class="p">);</span>
+
+	<span class="n">glfwMakeContextCurrent</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Initialize GLEW //</span>
+	<span class="c1">/////////////////////</span>
+
+	<span class="n">glewExperimental</span> <span class="o">=</span> <span class="n">GL_TRUE</span><span class="p">;</span>
+
+	<span class="c1">// Initialize GLEW</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">glewInit</span><span class="p">()</span> <span class="o">!=</span> <span class="n">GLEW_OK</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Error::main.cpp::GLEW Initialization Failed"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+		<span class="n">glfwTerminate</span><span class="p">();</span>
+		<span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">///////////////</span>
+	<span class="c1">// Main Loop //</span>
+	<span class="c1">///////////////</span>
+
+	<span class="k">while</span> <span class="p">(</span><span class="o">!</span> <span class="n">glfwWindowShouldClose</span><span class="p">(</span><span class="n">window</span><span class="p">))</span> <span class="p">{</span>
+
+		<span class="c1">// Input {</span>
+		<span class="n">glfwPollEvents</span><span class="p">();</span>
+		<span class="c1">// }</span>
+
+		<span class="c1">// Update {</span>
+		<span class="c1">//</span>
+		<span class="c1">// }</span>
+
+		<span class="c1">// Draw {</span>
+		<span class="c1">//	clear canvas {</span>
+		<span class="n">glClearColor</span><span class="p">(</span><span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">// Clear the canvas with a color</span>
+		<span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_DEPTH_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_STENCIL</span><span class="p">);</span> <span class="c1">// Clear Buffers</span>
+		<span class="c1">//	}</span>
+		<span class="c1">//	draw on canvas {</span>
+		<span class="c1">//		Nothing as of Now</span>
+		<span class="c1">//	}</span>
+		<span class="c1">//	end draw {</span>
+		<span class="n">glfwSwapBuffers</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+		<span class="n">glFlush</span><span class="p">();</span>
+		<span class="c1">//	}</span>
+		<span class="c1">// }</span>
+	<span class="p">}</span>
+
+	<span class="c1">/////////</span>
+	<span class="c1">// End //</span>
+	<span class="c1">/////////</span>
+	<span class="n">glfwTerminate</span><span class="p">();</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="resizable-window">
+<a class="anchor" href="#resizable-window" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resizable Window</h4>
+
+<p><strong>Github Commit:</strong> <a href="https://github.com/soumik12345/OpenGL-Track/tree/fbc2e6a7068b62d38fb869c92a34681471e24e95">https://github.com/soumik12345/OpenGL-Track/tree/fbc2e6a7068b62d38fb869c92a34681471e24e95</a></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "libs.h"
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+
+<span class="kt">void</span> <span class="nf">resize_callback</span><span class="p">(</span><span class="n">GLFWwindow</span><span class="o">*</span> <span class="n">window</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fbW</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fbH</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fbW</span><span class="p">,</span> <span class="n">fbH</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Initialize GLFW //</span>
+	<span class="c1">/////////////////////</span>
+	<span class="n">glfwInit</span><span class="p">();</span>
+	
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Create a Window //</span>
+	<span class="c1">/////////////////////</span>
+
+	<span class="c1">// Define Window Size</span>
+	<span class="k">const</span> <span class="kt">int</span> <span class="n">WINDOW_HEIGHT</span> <span class="o">=</span> <span class="mi">720</span><span class="p">;</span>
+	<span class="k">const</span> <span class="kt">int</span> <span class="n">WIDOWN_WIDTH</span> <span class="o">=</span> <span class="mi">1280</span><span class="p">;</span>
+
+	<span class="c1">// Define Frame Buffer Size</span>
+	<span class="kt">int</span> <span class="n">frameBufferHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameBufferWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+	<span class="c1">// Window Settings</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_OPENGL_PROFILE</span><span class="p">,</span> <span class="n">GLFW_OPENGL_CORE_PROFILE</span><span class="p">);</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_CONTEXT_VERSION_MAJOR</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_CONTEXT_VERSION_MINOR</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_RESIZABLE</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">);</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_OPENGL_FORWARD_COMPAT</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">);</span>
+
+	<span class="c1">// Create the Window</span>
+	<span class="n">GLFWwindow</span><span class="o">*</span> <span class="n">window</span> <span class="o">=</span> <span class="n">glfwCreateWindow</span><span class="p">(</span>
+		<span class="n">WIDOWN_WIDTH</span><span class="p">,</span> <span class="n">WINDOW_HEIGHT</span><span class="p">,</span>
+		<span class="s">"OpenGL Track"</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span>
+	<span class="p">);</span>
+
+	<span class="c1">// Resizable Window</span>
+	<span class="n">glfwSetFramebufferSizeCallback</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">resize_callback</span><span class="p">);</span>
+
+	<span class="c1">// Uncomment this, if the window is not resizable</span>
+	<span class="c1">//// Prepare Framebuffer</span>
+	<span class="c1">//glfwGetFramebufferSize(</span>
+	<span class="c1">//	window,</span>
+	<span class="c1">//	&amp;frameBufferWidth,</span>
+	<span class="c1">//	&amp;frameBufferHeight</span>
+	<span class="c1">//);</span>
+
+	<span class="c1">//// Prepare Viewport</span>
+	<span class="c1">//glViewport(0, 0, frameBufferWidth, frameBufferHeight);</span>
 
 	<span class="n">glfwMakeContextCurrent</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
 
