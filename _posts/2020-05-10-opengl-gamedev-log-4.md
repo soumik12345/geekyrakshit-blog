@@ -194,3 +194,18 @@ int main() {
     ```c++
     glfwMakeContextCurrent(window);
     ```
+
+
+## Initialize GLEW
+
+1. We need to first set `glewExperimental = GL_TRUE;`.
+
+2. Now we need to initialize GLEW. We can do that simply by calling `glewInit()` but we would also like to handle any error if GLEW initialization fail.
+
+    ```c++
+    if (glewInit() != GLEW_OK) {
+		cout << "Error::main.cpp::GLEW Initialization Failed" << endl;
+		glfwTerminate();
+		return EXIT_FAILURE;
+	}
+    ```
