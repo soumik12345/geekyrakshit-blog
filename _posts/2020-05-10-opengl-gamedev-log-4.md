@@ -282,3 +282,136 @@ Well nothing to draw as of now.
         <figcaption>At this point if you run the program, you would find a black window. You can change the color of the screen using different values in the <code>glClearColor</code> function</figcaption>
     </center>
 </figure>
+
+## End
+
+For ending the game, simply invoke `glfwTerminate()`. This function destroys all remaining windows and cursors, restores any modified gamma ramps and frees any other allocated resources.
+
+## Complete Code
+
+### libs.h
+
+```c++
+#pragma once
+
+#include<iostream>
+
+#include<glew.h>
+#include<glfw3.h>
+
+#include<glm.hpp>
+#include<vec2.hpp>
+#include<vec3.hpp>
+#include<vec4.hpp>
+#include<mat2x2.hpp>
+#include<mat3x3.hpp>
+#include<mat4x4.hpp>
+#include<gtc/matrix_transform.hpp>
+#include<gtc/type_ptr.hpp>
+
+#include<SOIL2.h>
+
+```
+
+### main.cpp
+
+```c++
+#include "libs.h"
+
+using namespace std;
+
+
+int main() {
+
+	/////////////////////
+	// Initialize GLFW //
+	/////////////////////
+	glfwInit();
+	
+	/////////////////////
+	// Create a Window //
+	/////////////////////
+
+	// Define Window Size
+	const int WINDOW_HEIGHT = 720;
+	const int WIDOWN_WIDTH = 1280;
+
+	// Define Frame Buffer Size
+	int frameBufferHeight = 0, frameBufferWidth = 0;
+
+	// Window Settings
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+	// Create the Window
+	GLFWwindow* window = glfwCreateWindow(
+		WIDOWN_WIDTH, WINDOW_HEIGHT,
+		"OpenGL Track", NULL, NULL
+	);
+
+	// Prepare Framebuffer
+	glfwGetFramebufferSize(
+		window,
+		&frameBufferWidth,
+		&frameBufferHeight
+	);
+
+	// Prepare Viewport
+	glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+
+	glfwMakeContextCurrent(window);
+
+	/////////////////////
+	// Initialize GLEW //
+	/////////////////////
+
+	glewExperimental = GL_TRUE;
+
+	// Initialize GLEW
+
+	if (glewInit() != GLEW_OK) {
+		cout << "Error::main.cpp::GLEW Initialization Failed" << endl;
+		glfwTerminate();
+		return EXIT_FAILURE;
+	}
+
+	///////////////
+	// Main Loop //
+	///////////////
+
+	while (! glfwWindowShouldClose(window)) {
+
+		// Input {
+		glfwPollEvents();
+		// }
+
+		// Update {
+		//
+		// }
+
+		// Draw {
+		//	clear canvas {
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Clear the canvas with a color
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL); // Clear Buffers
+		//	}
+		//	draw on canvas {
+		//		Nothing as of Now
+		//	}
+		//	end draw {
+		glfwSwapBuffers(window);
+		glFlush();
+		//	}
+		// }
+	}
+
+	/////////
+	// End //
+	/////////
+	glfwTerminate();
+
+	return 0;
+}
+```
