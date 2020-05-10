@@ -172,3 +172,25 @@ int main() {
     ```
 
     If you want to make the window fullscreen, you can use the function `glfwGetPrimaryMonitor()` to get the refernce to the primary monitor.
+
+5. Now we need to prepare the FrameBuffer of the window. A **FrameBuffer** basically  is a portion of the RAM or Video Card containing a bitmap that drives a video display. We would actually need to retrieve the size, in pixels, of the framebuffer of the specified window. The function to do this is:
+
+    ```c++
+    glfwGetFramebufferSize(
+		window,             // Window
+		&frameBufferWidth,  // variable to store the width, in pixels, of the framebuffer, or NULL
+		&frameBufferHeight  // variable to store the height, in pixels, of the framebuffer, or NULL
+	);
+    ```
+
+6. Now we would set up our canvas. A canvas is the area of the window on which we can draw something. In this case, we would want to assign the whole framebuffer as our canvas. Hence we would say:
+
+    ```c++
+    glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+    ```
+
+7. Now we want to make a context of the specified window current on the calling thread. A context must only be made current on a single thread at a time and each thread can have only a single current context at a time.
+
+    ```c++
+    glfwMakeContextCurrent(window);
+    ```
