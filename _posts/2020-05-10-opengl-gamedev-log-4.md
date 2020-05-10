@@ -246,3 +246,4 @@ At this point in the program, if you attempt to close the window, you wouldn't b
         <figcaption>If you have ignored my advice and already run the program, you can get rid of the unclosable window using the stop button in Visual Studio</figcaption>
     </center>
 </figure>
+
