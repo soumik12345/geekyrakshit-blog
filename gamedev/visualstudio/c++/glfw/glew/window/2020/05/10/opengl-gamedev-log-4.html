@@ -121,7 +121,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      2 min read
     
 </span></p>
 
@@ -162,12 +162,6 @@ window.onload = wrap_img;
 <ol>
   <li>
     <p>Create a header file in your project called <code class="highlighter-rouge">libs.h</code> and a C++ source file called <code class="highlighter-rouge">main.cpp</code>.</p>
-
-    <figure class="image">
-     <center>
-         <img src="/geekyrakshit-blog/images/opengl-logs/log_4_1.png">
-     </center>
- </figure>
   </li>
   <li>
     <p>Now import the necessary libraries in the header file.</p>
@@ -288,6 +282,41 @@ window.onload = wrap_img;
     <div class="language-c++ highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="n">frameBufferHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameBufferWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Set a couple of properties for the window:</p>
+
+    <ol>
+      <li>
+        <p>Since we want to turns on all the moder OpenGL functionalities, we would say:</p>
+
+        <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_OPENGL_PROFILE</span><span class="p">,</span> <span class="n">GLFW_OPENGL_CORE_PROFILE</span><span class="p">);</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>I want to use OpenGL version 4.4. In order to specify that, I would use the following settings:</p>
+
+        <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_CONTEXT_VERSION_MAJOR</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+ <span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_CONTEXT_VERSION_MINOR</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>As of now we don’t want our window to be resizable, so we would say:</p>
+
+        <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_RESIZABLE</span><span class="p">,</span> <span class="n">GL_FALSE</span><span class="p">);</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Since we want our game to be forward compatible or compatible with all subsequent versions of OpenGL, we would say:</p>
+
+        <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_OPENGL_FORWARD_COMPAT</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">);</span>
+</code></pre></div>        </div>
+      </li>
+    </ol>
   </li>
   <li>
     <p>Now we would create our window. We would be using the function <code class="highlighter-rouge">glfwCreateWindow()</code> that returns an object of type <code class="highlighter-rouge">GLFWwindow* window</code>. Following is the specification of the <code class="highlighter-rouge">glfwCreateWindow()</code> function:</p>
