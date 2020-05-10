@@ -11,12 +11,6 @@ image: images/opengl-logs/logo.png
 
 1. Create a header file in your project called `libs.h` and a C++ source file called `main.cpp`.
 
-    <figure class="image">
-        <center>
-            <img src="{{site.baseurl}}/images/opengl-logs/log_4_1.png">
-        </center>
-    </figure>
-
 2. Now import the necessary libraries in the header file.
 
     ```c++
@@ -129,7 +123,34 @@ int main() {
     int frameBufferHeight = 0, frameBufferWidth = 0;
     ```
 
-3. Now we would create our window. We would be using the function `glfwCreateWindow()` that returns an object of type `GLFWwindow* window`. Following is the specification of the `glfwCreateWindow()` function:
+5. Set a couple of properties for the window:
+    
+    1. Since we want to turns on all the moder OpenGL functionalities, we would say:
+
+        ```c++
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        ```
+
+    2. I want to use OpenGL version 4.4. In order to specify that, I would use the following settings:
+
+        ```c++
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+        ```
+    
+    3. As of now we don't want our window to be resizable, so we would say:
+    
+        ```c++
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+        ```
+    
+    4. Since we want our game to be forward compatible or compatible with all subsequent versions of OpenGL, we would say:
+
+        ```c++
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        ```
+
+4. Now we would create our window. We would be using the function `glfwCreateWindow()` that returns an object of type `GLFWwindow* window`. Following is the specification of the `glfwCreateWindow()` function:
 
     ```c++
     GLFWwindow* glfwCreateWindow(
