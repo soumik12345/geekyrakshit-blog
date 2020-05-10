@@ -52,10 +52,10 @@ image: images/opengl-logs/logo.png
 
     int main() {
 
-        //////////////////////
-        // Initialize GLFWW //
-        //////////////////////
-
+        /////////////////////
+        // Initialize GLFW //
+        /////////////////////
+        
         /////////////////////
         // Create a Window //
         /////////////////////
