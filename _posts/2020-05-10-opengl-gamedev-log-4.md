@@ -247,3 +247,6 @@ At this point in the program, if you attempt to close the window, you wouldn't b
     </center>
 </figure>
 
+### Input
+
+We would use `glfwPollEvents()` to process only those events that are already in the event queue and then returns immediately. This include the inputs from keyboard and mouse too.
