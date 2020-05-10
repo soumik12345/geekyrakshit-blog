@@ -154,6 +154,7 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#anatomy-of-the-programm">Anatomy of the programm</a></li>
+<li class="toc-entry toc-h2"><a href="#initialize-glfw">Initialize GLFW</a></li>
 </ul><h2 id="anatomy-of-the-programm">
 <a class="anchor" href="#anatomy-of-the-programm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Anatomy of the programm</h2>
 
@@ -230,6 +231,41 @@ window.onload = wrap_img;
 </code></pre></div>    </div>
   </li>
 </ol>
+
+<h2 id="initialize-glfw">
+<a class="anchor" href="#initialize-glfw" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initialize GLFW</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "libs.h"
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Initialize GLFW //</span>
+	<span class="c1">/////////////////////</span>
+	<span class="n">glfwInit</span><span class="p">();</span>
+	
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Create a Window //</span>
+	<span class="c1">/////////////////////</span>
+
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Initialize GLEW //</span>
+	<span class="c1">/////////////////////</span>
+
+	<span class="c1">///////////////</span>
+	<span class="c1">// Main Loop //</span>
+	<span class="c1">///////////////</span>
+
+	<span class="c1">/////////</span>
+	<span class="c1">// End //</span>
+	<span class="c1">/////////</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
   </div><a class="u-url" href="/geekyrakshit-blog/gamedev/visualstudio/c++/glfw/glew/window/2020/05/10/opengl-gamedev-log-4.html" hidden></a>
 </article>
