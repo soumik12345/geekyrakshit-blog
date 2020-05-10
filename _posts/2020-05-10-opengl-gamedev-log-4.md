@@ -75,3 +75,39 @@ image: images/opengl-logs/logo.png
         return 0;
     }
     ```
+
+
+## Initialize GLFW
+
+```c++
+#include "libs.h"
+
+using namespace std;
+
+
+int main() {
+
+	/////////////////////
+	// Initialize GLFW //
+	/////////////////////
+	glfwInit();
+	
+	/////////////////////
+	// Create a Window //
+	/////////////////////
+
+	/////////////////////
+	// Initialize GLEW //
+	/////////////////////
+
+	///////////////
+	// Main Loop //
+	///////////////
+
+	/////////
+	// End //
+	/////////
+
+	return 0;
+}
+```
