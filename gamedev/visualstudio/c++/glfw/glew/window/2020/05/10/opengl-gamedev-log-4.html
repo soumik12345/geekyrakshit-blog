@@ -121,7 +121,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      3 min read
     
 </span></p>
 
@@ -341,6 +341,31 @@ window.onload = wrap_img;
 </code></pre></div>    </div>
 
     <p>If you want to make the window fullscreen, you can use the function <code class="highlighter-rouge">glfwGetPrimaryMonitor()</code> to get the refernce to the primary monitor.</p>
+  </li>
+  <li>
+    <p>Now we need to prepare the FrameBuffer of the window. A <strong>FrameBuffer</strong> basically  is a portion of the RAM or Video Card containing a bitmap that drives a video display. We would actually need to retrieve the size, in pixels, of the framebuffer of the specified window. The function to do this is:</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glfwGetFramebufferSize</span><span class="p">(</span>
+     <span class="n">window</span><span class="p">,</span>             <span class="c1">// Window</span>
+     <span class="o">&amp;</span><span class="n">frameBufferWidth</span><span class="p">,</span>  <span class="c1">// variable to store the width, in pixels, of the framebuffer, or NULL</span>
+     <span class="o">&amp;</span><span class="n">frameBufferHeight</span>  <span class="c1">// variable to store the height, in pixels, of the framebuffer, or NULL</span>
+ <span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Now we would set up our canvas. A canvas is the area of the window on which we can draw something. In this case, we would want to assign the whole framebuffer as our canvas. Hence we would say:</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameBufferWidth</span><span class="p">,</span> <span class="n">frameBufferHeight</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Now we want to make a context of the specified window current on the calling thread. A context must only be made current on a single thread at a time and each thread can have only a single current context at a time.</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glfwMakeContextCurrent</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+</code></pre></div>    </div>
   </li>
 </ol>
 
