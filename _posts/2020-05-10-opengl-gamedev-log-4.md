@@ -79,6 +79,8 @@ image: images/opengl-logs/logo.png
 
 ## Initialize GLFW
 
+Simply invoke `glfwInit();`.
+
 ```c++
 #include "libs.h"
 
@@ -111,3 +113,41 @@ int main() {
 	return 0;
 }
 ```
+
+## Creating the Window
+
+1. Define the dimensions of the window:
+
+    ```c++
+    const int WINDOW_HEIGHT = 720;
+	const int WIDOWN_WIDTH = 1280;
+    ```
+
+2. Define the frame buffer sizes:
+
+    ```c++
+    int frameBufferHeight = 0, frameBufferWidth = 0;
+    ```
+
+3. Now we would create our window. We would be using the function `glfwCreateWindow()` that returns an object of type `GLFWwindow* window`. Following is the specification of the `glfwCreateWindow()` function:
+
+    ```c++
+    GLFWwindow* glfwCreateWindow(
+        int 	        width,      // Window Width
+        int 	        height,     // Window Heigh
+        const char* 	title,      // The initial, UTF-8 encoded window title.
+        GLFWmonitor* 	monitor,    // The monitor to use for full screen mode, or NULL for windowed mode.
+        GLFWwindow* 	share       // The window whose context to share resources with, or NULL to not share resources.
+    )	
+    ```
+
+    Now, we create a window using the following code snippet:
+
+    ```c++
+    GLFWwindow* window = glfwCreateWindow(
+		WIDOWN_WIDTH, WINDOW_HEIGHT,
+		"OpenGL Track", NULL, NULL
+	);
+    ```
+
+    If you want to make the window fullscreen, you can use the function `glfwGetPrimaryMonitor()` to get the refernce to the primary monitor.
