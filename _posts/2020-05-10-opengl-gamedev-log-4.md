@@ -227,7 +227,8 @@ while (true) {
 
     // Draw {
     //	clear canvas
-    //	update canvas	
+    //	draw on canvas
+    //  end draw	
     // }
 }
 ```
@@ -249,4 +250,35 @@ At this point in the program, if you attempt to close the window, you wouldn't b
 
 ### Input
 
-We would use `glfwPollEvents()` to process only those events that are already in the event queue and then returns immediately. This include the inputs from keyboard and mouse too.
+We would use `glfwPollEvents()` to process only those events that are already in the event queue and then returns immediately. This include the inputs from keyboard and mouse too. At this point, if you run the program, you would be able to interact with the window and even close it (we already wrote the logic for that).
+
+### Clear
+
+1. We would clear the canvas with an `(r, g, b, a)` value using:
+
+    ```c++
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    ```
+
+2. We would then clear the color, depth and stencil buffer using:
+
+    ```c++
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL);
+    ```
+
+### Draw
+
+Well nothing to draw as of now.
+
+### End Draw
+
+1. OpenGL actually has 2 buffers, the fron buffer and the back buffer. While the back buffer is being actively being drawn on in the, well, back, the front buffer is being shown. We would use `glfwSwapBuffers(window)` to swap the front and back buffers of the specified window when rendering with OpenGL. If the swap interval is greater than zero, the GPU driver waits the specified number of screen updates before swapping the buffers. This actually helps with things like screen tear, which occurs when a partially rendered frame is displayed on the screen.
+
+2. We need to invoke `glFlush()` in order to force execution of GL commands in finite time. Different GL implementations buffer commands in several different locations, including network buffers and the graphics accelerator itself. `glFlush` empties all of these buffers, causing all issued commands to be executed as quickly as they are accepted by the actual rendering engine. Though this execution may not be completed in any particular time period, it does complete in finite time.
+
+<figure class="image">
+    <center>
+        <img src="https://raw.githubusercontent.com/soumik12345/geekyrakshit-blog/master/images/opengl-logs/log_4_2.PNG">
+        <figcaption>At this point if you run the program, you would find a black window. You can change the color of the screen using different values in the <code>glClearColor</code> function</figcaption>
+    </center>
+</figure>
