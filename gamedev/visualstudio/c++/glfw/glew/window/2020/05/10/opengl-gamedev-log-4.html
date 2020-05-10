@@ -155,6 +155,7 @@ window.onload = wrap_img;
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#anatomy-of-the-programm">Anatomy of the programm</a></li>
 <li class="toc-entry toc-h2"><a href="#initialize-glfw">Initialize GLFW</a></li>
+<li class="toc-entry toc-h2"><a href="#creating-the-window">Creating the Window</a></li>
 </ul><h2 id="anatomy-of-the-programm">
 <a class="anchor" href="#anatomy-of-the-programm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Anatomy of the programm</h2>
 
@@ -235,6 +236,8 @@ window.onload = wrap_img;
 <h2 id="initialize-glfw">
 <a class="anchor" href="#initialize-glfw" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initialize GLFW</h2>
 
+<p>Simply invoke <code class="highlighter-rouge">glfwInit();</code>.</p>
+
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "libs.h"
 </span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
@@ -266,6 +269,51 @@ window.onload = wrap_img;
 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
+
+<h2 id="creating-the-window">
+<a class="anchor" href="#creating-the-window" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating the Window</h2>
+
+<ol>
+  <li>
+    <p>Define the dimensions of the window:</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="k">const</span> <span class="kt">int</span> <span class="n">WINDOW_HEIGHT</span> <span class="o">=</span> <span class="mi">720</span><span class="p">;</span>
+ <span class="k">const</span> <span class="kt">int</span> <span class="n">WIDOWN_WIDTH</span> <span class="o">=</span> <span class="mi">1280</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Define the frame buffer sizes:</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="n">frameBufferHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameBufferWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Now we would create our window. We would be using the function <code class="highlighter-rouge">glfwCreateWindow()</code> that returns an object of type <code class="highlighter-rouge">GLFWwindow* window</code>. Following is the specification of the <code class="highlighter-rouge">glfwCreateWindow()</code> function:</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">GLFWwindow</span><span class="o">*</span> <span class="n">glfwCreateWindow</span><span class="p">(</span>
+     <span class="kt">int</span> 	        <span class="n">width</span><span class="p">,</span>      <span class="c1">// Window Width</span>
+     <span class="kt">int</span> 	        <span class="n">height</span><span class="p">,</span>     <span class="c1">// Window Heigh</span>
+     <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> 	<span class="n">title</span><span class="p">,</span>      <span class="c1">// The initial, UTF-8 encoded window title.</span>
+     <span class="n">GLFWmonitor</span><span class="o">*</span> 	<span class="n">monitor</span><span class="p">,</span>    <span class="c1">// The monitor to use for full screen mode, or NULL for windowed mode.</span>
+     <span class="n">GLFWwindow</span><span class="o">*</span> 	<span class="n">share</span>       <span class="c1">// The window whose context to share resources with, or NULL to not share resources.</span>
+ <span class="p">)</span>	
+</code></pre></div>    </div>
+
+    <p>Now, we create a window using the following code snippet:</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">GLFWwindow</span><span class="o">*</span> <span class="n">window</span> <span class="o">=</span> <span class="n">glfwCreateWindow</span><span class="p">(</span>
+     <span class="n">WIDOWN_WIDTH</span><span class="p">,</span> <span class="n">WINDOW_HEIGHT</span><span class="p">,</span>
+     <span class="s">"OpenGL Track"</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span>
+ <span class="p">);</span>
+</code></pre></div>    </div>
+
+    <p>If you want to make the window fullscreen, you can use the function <code class="highlighter-rouge">glfwGetPrimaryMonitor()</code> to get the refernce to the primary monitor.</p>
+  </li>
+</ol>
 
   </div><a class="u-url" href="/geekyrakshit-blog/gamedev/visualstudio/c++/glfw/glew/window/2020/05/10/opengl-gamedev-log-4.html" hidden></a>
 </article>
