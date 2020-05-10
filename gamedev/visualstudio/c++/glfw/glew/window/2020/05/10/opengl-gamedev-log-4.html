@@ -156,6 +156,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#anatomy-of-the-programm">Anatomy of the programm</a></li>
 <li class="toc-entry toc-h2"><a href="#initialize-glfw">Initialize GLFW</a></li>
 <li class="toc-entry toc-h2"><a href="#creating-the-window">Creating the Window</a></li>
+<li class="toc-entry toc-h2"><a href="#initialize-glew">Initialize GLEW</a></li>
 </ul><h2 id="anatomy-of-the-programm">
 <a class="anchor" href="#anatomy-of-the-programm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Anatomy of the programm</h2>
 
@@ -365,6 +366,26 @@ window.onload = wrap_img;
 
     <div class="language-c++ highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code> <span class="n">glfwMakeContextCurrent</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="initialize-glew">
+<a class="anchor" href="#initialize-glew" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initialize GLEW</h2>
+
+<ol>
+  <li>
+    <p>We need to first set <code class="highlighter-rouge">glewExperimental = GL_TRUE;</code>.</p>
+  </li>
+  <li>
+    <p>Now we need to initialize GLEW. We can do that simply by calling <code class="highlighter-rouge">glewInit()</code> but we would also like to handle any error if GLEW initialization fail.</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="p">(</span><span class="n">glewInit</span><span class="p">()</span> <span class="o">!=</span> <span class="n">GLEW_OK</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Error::main.cpp::GLEW Initialization Failed"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+     <span class="n">glfwTerminate</span><span class="p">();</span>
+     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+ <span class="p">}</span>
 </code></pre></div>    </div>
   </li>
 </ol>
