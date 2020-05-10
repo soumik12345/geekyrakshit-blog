@@ -242,7 +242,7 @@ At this point in the program, if you attempt to close the window, you wouldn't b
 
 <figure class="image">
     <center>
-        <img src="{{site.baseurl}}/images/opengl-logs/acgan.png">
+        <img src="https://raw.githubusercontent.com/soumik12345/geekyrakshit-blog/master/images/opengl-logs/log_4_1.PNG">
         <figcaption>If you have ignored my advice and already run the program, you can get rid of the unclosable window using the stop button in Visual Studio</figcaption>
     </center>
 </figure>
