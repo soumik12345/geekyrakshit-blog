@@ -121,7 +121,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      4 min read
     
 </span></p>
 
@@ -157,6 +157,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#initialize-glfw">Initialize GLFW</a></li>
 <li class="toc-entry toc-h2"><a href="#creating-the-window">Creating the Window</a></li>
 <li class="toc-entry toc-h2"><a href="#initialize-glew">Initialize GLEW</a></li>
+<li class="toc-entry toc-h2"><a href="#main-loop">Main Loop</a></li>
 </ul><h2 id="anatomy-of-the-programm">
 <a class="anchor" href="#anatomy-of-the-programm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Anatomy of the programm</h2>
 
@@ -389,6 +390,42 @@ window.onload = wrap_img;
 </code></pre></div>    </div>
   </li>
 </ol>
+
+<h2 id="main-loop">
+<a class="anchor" href="#main-loop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main Loop</h2>
+
+<p>The <strong>Main Loop</strong> or the <strong>Game Loop</strong> consists of a loop inside which all the cool stuff actually takes place. The anatomy of the Main Loop consists of the following:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Input {</span>
+    <span class="c1">//</span>
+    <span class="c1">// }</span>
+
+    <span class="c1">// Update {</span>
+    <span class="c1">//</span>
+    <span class="c1">// }</span>
+
+    <span class="c1">// Draw {</span>
+    <span class="c1">//	clear canvas</span>
+    <span class="c1">//	update canvas	</span>
+    <span class="c1">// }</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now comes the question that how long should the loop run (<code class="highlighter-rouge">while (true)</code> simply makes it an infinite loop) ? The answer is simple: till the window is kept open. So, we would modify the condition:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="p">(</span><span class="o">!</span> <span class="n">glfwWindowShouldClose</span><span class="p">(</span><span class="n">window</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>At this point in the program, if you attempt to close the window, you wouldn’t be able to close it. So better not try it :smirk:.</p>
+
+<figure class="image">
+    <center>
+        <img src="/geekyrakshit-blog/images/opengl-logs/log_4_1.png">
+        <figcaption>If you have ignored my advice and already run the program, you can get rid of the unclosable window using the stop button in Visual Studio</figcaption>
+    </center>
+</figure>
 
   </div><a class="u-url" href="/geekyrakshit-blog/gamedev/visualstudio/c++/glfw/glew/window/2020/05/10/opengl-gamedev-log-4.html" hidden></a>
 </article>
