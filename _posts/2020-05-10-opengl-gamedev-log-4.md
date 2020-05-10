@@ -278,7 +278,7 @@ Well nothing to draw as of now.
 
 <figure class="image">
     <center>
-        <img src="https://raw.githubusercontent.com/soumik12345/geekyrakshit-blog/master/images/opengl-logs/log_4_2.PNG">
+        <img src="https://raw.githubusercontent.com/soumik12345/geekyrakshit-blog/master/images/opengl-logs/log_4_2.png">
         <figcaption>At this point if you run the program, you would find a black window. You can change the color of the screen using different values in the <code>glClearColor</code> function</figcaption>
     </center>
 </figure>
