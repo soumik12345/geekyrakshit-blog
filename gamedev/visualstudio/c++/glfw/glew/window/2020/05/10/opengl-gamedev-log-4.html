@@ -121,7 +121,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      5 min read
     
 </span></p>
 
@@ -160,6 +160,9 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#main-loop">Main Loop</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#input">Input</a></li>
+<li class="toc-entry toc-h3"><a href="#clear">Clear</a></li>
+<li class="toc-entry toc-h3"><a href="#draw">Draw</a></li>
+<li class="toc-entry toc-h3"><a href="#end-draw">End Draw</a></li>
 </ul>
 </li>
 </ul><h2 id="anatomy-of-the-programm">
@@ -412,7 +415,8 @@ window.onload = wrap_img;
 
     <span class="c1">// Draw {</span>
     <span class="c1">//	clear canvas</span>
-    <span class="c1">//	update canvas	</span>
+    <span class="c1">//	draw on canvas</span>
+    <span class="c1">//  end draw	</span>
     <span class="c1">// }</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -434,7 +438,51 @@ window.onload = wrap_img;
 <h3 id="input">
 <a class="anchor" href="#input" aria-hidden="true"><span class="octicon octicon-link"></span></a>Input</h3>
 
-<p>We would use <code class="highlighter-rouge">glfwPollEvents()</code> to process only those events that are already in the event queue and then returns immediately. This include the inputs from keyboard and mouse too.</p>
+<p>We would use <code class="highlighter-rouge">glfwPollEvents()</code> to process only those events that are already in the event queue and then returns immediately. This include the inputs from keyboard and mouse too. At this point, if you run the program, you would be able to interact with the window and even close it (we already wrote the logic for that).</p>
+
+<h3 id="clear">
+<a class="anchor" href="#clear" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clear</h3>
+
+<ol>
+  <li>
+    <p>We would clear the canvas with an <code class="highlighter-rouge">(r, g, b, a)</code> value using:</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glClearColor</span><span class="p">(</span><span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>We would then clear the color, depth and stencil buffer using:</p>
+
+    <div class="language-c++ highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_DEPTH_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_STENCIL</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="draw">
+<a class="anchor" href="#draw" aria-hidden="true"><span class="octicon octicon-link"></span></a>Draw</h3>
+
+<p>Well nothing to draw as of now.</p>
+
+<h3 id="end-draw">
+<a class="anchor" href="#end-draw" aria-hidden="true"><span class="octicon octicon-link"></span></a>End Draw</h3>
+
+<ol>
+  <li>
+    <p>OpenGL actually has 2 buffers, the fron buffer and the back buffer. While the back buffer is being actively being drawn on in the, well, back, the front buffer is being shown. We would use <code class="highlighter-rouge">glfwSwapBuffers(window)</code> to swap the front and back buffers of the specified window when rendering with OpenGL. If the swap interval is greater than zero, the GPU driver waits the specified number of screen updates before swapping the buffers. This actually helps with things like screen tear, which occurs when a partially rendered frame is displayed on the screen.</p>
+  </li>
+  <li>
+    <p>We need to invoke <code class="highlighter-rouge">glFlush()</code> in order to force execution of GL commands in finite time. Different GL implementations buffer commands in several different locations, including network buffers and the graphics accelerator itself. <code class="highlighter-rouge">glFlush</code> empties all of these buffers, causing all issued commands to be executed as quickly as they are accepted by the actual rendering engine. Though this execution may not be completed in any particular time period, it does complete in finite time.</p>
+  </li>
+</ol>
+
+<figure class="image">
+    <center>
+        <img src="https://raw.githubusercontent.com/soumik12345/geekyrakshit-blog/master/images/opengl-logs/log_4_2.PNG">
+        <figcaption>At this point if you run the program, you would find a black window. You can change the color of the screen using different values in the <code>glClearColor</code> function</figcaption>
+    </center>
+</figure>
 
   </div><a class="u-url" href="/geekyrakshit-blog/gamedev/visualstudio/c++/glfw/glew/window/2020/05/10/opengl-gamedev-log-4.html" hidden></a>
 </article>
