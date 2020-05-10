@@ -121,7 +121,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      7 min read
     
 </span></p>
 
@@ -163,6 +163,13 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#clear">Clear</a></li>
 <li class="toc-entry toc-h3"><a href="#draw">Draw</a></li>
 <li class="toc-entry toc-h3"><a href="#end-draw">End Draw</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#end">End</a></li>
+<li class="toc-entry toc-h2"><a href="#complete-code">Complete Code</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#libsh">libs.h</a></li>
+<li class="toc-entry toc-h3"><a href="#maincpp">main.cpp</a></li>
 </ul>
 </li>
 </ul><h2 id="anatomy-of-the-programm">
@@ -483,6 +490,141 @@ window.onload = wrap_img;
         <figcaption>At this point if you run the program, you would find a black window. You can change the color of the screen using different values in the <code>glClearColor</code> function</figcaption>
     </center>
 </figure>
+
+<h2 id="end">
+<a class="anchor" href="#end" aria-hidden="true"><span class="octicon octicon-link"></span></a>End</h2>
+
+<p>For ending the game, simply invoke <code class="highlighter-rouge">glfwTerminate()</code>. This function destroys all remaining windows and cursors, restores any modified gamma ramps and frees any other allocated resources.</p>
+
+<h2 id="complete-code">
+<a class="anchor" href="#complete-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Complete Code</h2>
+
+<h3 id="libsh">
+<a class="anchor" href="#libsh" aria-hidden="true"><span class="octicon octicon-link"></span></a>libs.h</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#pragma once
+</span>
+<span class="cp">#include&lt;iostream&gt;
+</span>
+<span class="cp">#include&lt;glew.h&gt;
+#include&lt;glfw3.h&gt;
+</span>
+<span class="cp">#include&lt;glm.hpp&gt;
+#include&lt;vec2.hpp&gt;
+#include&lt;vec3.hpp&gt;
+#include&lt;vec4.hpp&gt;
+#include&lt;mat2x2.hpp&gt;
+#include&lt;mat3x3.hpp&gt;
+#include&lt;mat4x4.hpp&gt;
+#include&lt;gtc/matrix_transform.hpp&gt;
+#include&lt;gtc/type_ptr.hpp&gt;
+</span>
+<span class="cp">#include&lt;SOIL2.h&gt;
+</span>
+</code></pre></div></div>
+
+<h3 id="maincpp">
+<a class="anchor" href="#maincpp" aria-hidden="true"><span class="octicon octicon-link"></span></a>main.cpp</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "libs.h"
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Initialize GLFW //</span>
+	<span class="c1">/////////////////////</span>
+	<span class="n">glfwInit</span><span class="p">();</span>
+	
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Create a Window //</span>
+	<span class="c1">/////////////////////</span>
+
+	<span class="c1">// Define Window Size</span>
+	<span class="k">const</span> <span class="kt">int</span> <span class="n">WINDOW_HEIGHT</span> <span class="o">=</span> <span class="mi">720</span><span class="p">;</span>
+	<span class="k">const</span> <span class="kt">int</span> <span class="n">WIDOWN_WIDTH</span> <span class="o">=</span> <span class="mi">1280</span><span class="p">;</span>
+
+	<span class="c1">// Define Frame Buffer Size</span>
+	<span class="kt">int</span> <span class="n">frameBufferHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameBufferWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+	<span class="c1">// Window Settings</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_OPENGL_PROFILE</span><span class="p">,</span> <span class="n">GLFW_OPENGL_CORE_PROFILE</span><span class="p">);</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_CONTEXT_VERSION_MAJOR</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_CONTEXT_VERSION_MINOR</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_RESIZABLE</span><span class="p">,</span> <span class="n">GL_FALSE</span><span class="p">);</span>
+	<span class="n">glfwWindowHint</span><span class="p">(</span><span class="n">GLFW_OPENGL_FORWARD_COMPAT</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">);</span>
+
+	<span class="c1">// Create the Window</span>
+	<span class="n">GLFWwindow</span><span class="o">*</span> <span class="n">window</span> <span class="o">=</span> <span class="n">glfwCreateWindow</span><span class="p">(</span>
+		<span class="n">WIDOWN_WIDTH</span><span class="p">,</span> <span class="n">WINDOW_HEIGHT</span><span class="p">,</span>
+		<span class="s">"OpenGL Track"</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span>
+	<span class="p">);</span>
+
+	<span class="c1">// Prepare Framebuffer</span>
+	<span class="n">glfwGetFramebufferSize</span><span class="p">(</span>
+		<span class="n">window</span><span class="p">,</span>
+		<span class="o">&amp;</span><span class="n">frameBufferWidth</span><span class="p">,</span>
+		<span class="o">&amp;</span><span class="n">frameBufferHeight</span>
+	<span class="p">);</span>
+
+	<span class="c1">// Prepare Viewport</span>
+	<span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameBufferWidth</span><span class="p">,</span> <span class="n">frameBufferHeight</span><span class="p">);</span>
+
+	<span class="n">glfwMakeContextCurrent</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+
+	<span class="c1">/////////////////////</span>
+	<span class="c1">// Initialize GLEW //</span>
+	<span class="c1">/////////////////////</span>
+
+	<span class="n">glewExperimental</span> <span class="o">=</span> <span class="n">GL_TRUE</span><span class="p">;</span>
+
+	<span class="c1">// Initialize GLEW</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">glewInit</span><span class="p">()</span> <span class="o">!=</span> <span class="n">GLEW_OK</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Error::main.cpp::GLEW Initialization Failed"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+		<span class="n">glfwTerminate</span><span class="p">();</span>
+		<span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">///////////////</span>
+	<span class="c1">// Main Loop //</span>
+	<span class="c1">///////////////</span>
+
+	<span class="k">while</span> <span class="p">(</span><span class="o">!</span> <span class="n">glfwWindowShouldClose</span><span class="p">(</span><span class="n">window</span><span class="p">))</span> <span class="p">{</span>
+
+		<span class="c1">// Input {</span>
+		<span class="n">glfwPollEvents</span><span class="p">();</span>
+		<span class="c1">// }</span>
+
+		<span class="c1">// Update {</span>
+		<span class="c1">//</span>
+		<span class="c1">// }</span>
+
+		<span class="c1">// Draw {</span>
+		<span class="c1">//	clear canvas {</span>
+		<span class="n">glClearColor</span><span class="p">(</span><span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">// Clear the canvas with a color</span>
+		<span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_DEPTH_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_STENCIL</span><span class="p">);</span> <span class="c1">// Clear Buffers</span>
+		<span class="c1">//	}</span>
+		<span class="c1">//	draw on canvas {</span>
+		<span class="c1">//		Nothing as of Now</span>
+		<span class="c1">//	}</span>
+		<span class="c1">//	end draw {</span>
+		<span class="n">glfwSwapBuffers</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
+		<span class="n">glFlush</span><span class="p">();</span>
+		<span class="c1">//	}</span>
+		<span class="c1">// }</span>
+	<span class="p">}</span>
+
+	<span class="c1">/////////</span>
+	<span class="c1">// End //</span>
+	<span class="c1">/////////</span>
+	<span class="n">glfwTerminate</span><span class="p">();</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
   </div><a class="u-url" href="/geekyrakshit-blog/gamedev/visualstudio/c++/glfw/glew/window/2020/05/10/opengl-gamedev-log-4.html" hidden></a>
 </article>
