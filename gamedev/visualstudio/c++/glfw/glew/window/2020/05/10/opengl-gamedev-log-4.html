@@ -157,7 +157,11 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#initialize-glfw">Initialize GLFW</a></li>
 <li class="toc-entry toc-h2"><a href="#creating-the-window">Creating the Window</a></li>
 <li class="toc-entry toc-h2"><a href="#initialize-glew">Initialize GLEW</a></li>
-<li class="toc-entry toc-h2"><a href="#main-loop">Main Loop</a></li>
+<li class="toc-entry toc-h2"><a href="#main-loop">Main Loop</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#input">Input</a></li>
+</ul>
+</li>
 </ul><h2 id="anatomy-of-the-programm">
 <a class="anchor" href="#anatomy-of-the-programm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Anatomy of the programm</h2>
 
@@ -427,6 +431,10 @@ window.onload = wrap_img;
     </center>
 </figure>
 
+<h3 id="input">
+<a class="anchor" href="#input" aria-hidden="true"><span class="octicon octicon-link"></span></a>Input</h3>
+
+<p>We would use <code class="highlighter-rouge">glfwPollEvents()</code> to process only those events that are already in the event queue and then returns immediately. This include the inputs from keyboard and mouse too.</p>
 
   </div><a class="u-url" href="/geekyrakshit-blog/gamedev/visualstudio/c++/glfw/glew/window/2020/05/10/opengl-gamedev-log-4.html" hidden></a>
 </article>
