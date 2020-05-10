@@ -238,11 +238,11 @@ Now comes the question that how long should the loop run (`while (true)` simply 
 while (! glfwWindowShouldClose(window))
 ```
 
-At this point in the program, if you attempt to close the window, you wouldn't be able to close it. So better not try it :smirk:.
+At this point in the program, if you attempt to close the window, you wouldn't be able to close it. So better not try it 😏.
 
 <figure class="image">
     <center>
-        <img src="{{site.baseurl}}/images/opengl-logs/log_4_1.png">
+        <img src="{{site.baseurl}}/images/opengl-logs/acgan.png">
         <figcaption>If you have ignored my advice and already run the program, you can get rid of the unclosable window using the stop button in Visual Studio</figcaption>
     </center>
 </figure>
