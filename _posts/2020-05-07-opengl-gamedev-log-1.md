@@ -1,95 +1,137 @@
 ---
 toc: true
 layout: post
-description: OpenGL GameDev Log 1, detailed instructions for setting up and linking GLFW and GLEW with Visual Studio 2019 on Windows 10.
-categories: [gamedev, visualstudio, glfw, glew]
-title: OpenGL GameDev Log 1 Setting Up Dependencies on Windows
+description: OpenKraft GameDev Log 1, getting started with Game Development using Java
+categories: [gamedev, java, eclipse, lwjgl]
+title: OpenKraft GameDev Log 1 - Getting started with the Project
 image: images/opengl-logs/logo.png
 ---
-# OpenGL GameDev Log 1: Setting up Dependencies on Windows
 
-## Setting Up GLFW
+OpenKraft is an OpenGL based Game Engine I sought out to write as basic OpenGL learning, which I eventually wish to expand to a Minecraft like voxel-based sandbox game engine. The idea behind this series is not to write a tutorial, but to maintain a development log for the project. We would begin with setting up our project.
 
-[GLFW](https://www.glfw.org/) is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop. It provides a simple API for creating windows, contexts and surfaces, receiving input and events.
+Following are the steps to set up dependencies on MacOS and Eclise IDE:
 
-GLFW is written in C and supports Windows, macOS, the X Window System and the Wayland protocol.
+1. Download [Light-Weight Java Game Library 2.9.1](https://www.youtube.com/redirect?v=Jdkq-aSFEA0&redir_token=VvmPJMAt4oYnswtqJ1y7X61VGbJ8MTU5MzM3ODY2OEAxNTkzMjkyMjY4&event=video_description&q=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fjava-game-lib%2Ffiles%2FOfficial%2520Releases%2FLWJGL%25202.9.1%2Flwjgl-2.9.1.zip%2Fdownload).
 
-Following are the steps to set up GLFW with Visual Studio 2019 on Windows 10:
+2. Download [Slick-Utils JAR file](https://www.youtube.com/redirect?v=Jdkq-aSFEA0&redir_token=VvmPJMAt4oYnswtqJ1y7X61VGbJ8MTU5MzM3ODY2OEAxNTkzMjkyMjY4&event=video_description&q=http%3A%2F%2Fslick.ninjacave.com%2Fslick-util.jar).
 
-1. Download 32 bit pre-compiled GLFW binaries for Windows from [https://www.glfw.org/download.html](https://www.glfw.org/download.html).
+3. Create a folder called `lib` to hold all our dependencies. Create 2 directories inside `lib` called `jars` and `natives`.
 
+4. Move `lwjgl-2.9.1/jar/lwjgl.jar`, `lwjgl-2.9.1/jar/lwjgl_test.jar`, and `slick-util.jar` inside `libs/jars`.
 
-    <figure class="image">
-        <center>
-            <img src="{{site.baseurl}}/images/opengl-logs/log_1_1.png">
-            <figcaption>Download the 32 Bit pre-compiled binaries for Windows</figcaption>
-        </center>
-    </figure>
+5. Move the files under `lwjgl-2.9.1/native` inside `libs/natives`.
 
-2. Create an Empty project in Visual Studio 2019.
-3. Unzip the GLFW binaries.
-4. Create the following directory structure:
+6. Under the project `OpenKraft`, copy and paste the `libs` directory and hit refersh in the IDE.
+
+7. Right click on project > Build Path > Configure Build Path.
+
+8. Go to Libraries > Add JARs > Add all the JAR files.
+
+9. JRE System Library [JavaSE-1.8] > Native Library Location > Set to `libs/natives`.
+
+10. Apply and Close.
+
+11. We will start writing our Render Engine. Let's start by creating a package called `renderEngine`.
+
+12. Under this there would be a class called `DisplayManager` which would manage the main display window of the game.
+
+13. The constructor of a `DisplayManager` object takes in the title of the game, width of the window, height of the window and maximum frame-rate of the game.
+
+    - `createDisplay()` function to create the display.
+    - `updateDisplay()` function to update the display.
+    - `isCloseRequested()` function to check if user has requested to close window or not.
+    - `closeDisplay()` function to close the display.
+
+14. Code for `renderEngine.DisplayManager`:
+
+    ```java
+    package renderEngine;
+
+    import org.lwjgl.LWJGLException;
+    import org.lwjgl.opengl.ContextAttribs;
+    import org.lwjgl.opengl.Display;
+    import org.lwjgl.opengl.DisplayMode;
+    import org.lwjgl.opengl.GL11;
+    import org.lwjgl.opengl.PixelFormat;
+
+    public class DisplayManager {
+        
+        public int width, height, max_fps;
+        public String title;
+        
+        public DisplayManager(String title, int width, int height, int max_fps) {
+            this.title = title;
+            this.width = width;
+            this.height = height;
+            this.max_fps = max_fps;
+        }
+        
+        public void createDisplay() {
+            
+            ContextAttribs attributes = new ContextAttribs(3, 2);
+            attributes.withForwardCompatible(true);
+            attributes.withProfileCore(true);
+            
+            try {
+                Display.setDisplayMode(new DisplayMode(this.width, this.height));
+                Display.create(new PixelFormat(), attributes);
+                Display.setTitle(this.title);
+            } catch (LWJGLException e) {
+                e.printStackTrace();
+            }
+            
+            GL11.glViewport(0, 0, this.width, this.height);
+            
+            
+        }
+        
+        public void updateDisplay() {
+            Display.sync(this.max_fps);
+            Display.update();
+        }
+        
+        public void closeDisplay() {
+            Display.destroy();
+        }
+        
+        public boolean isCloseRequested() {
+            return Display.isCloseRequested();
+        }
+
+    }
     ```
-    Linking
-    |
-    -------GLFW
-            |
-            ----inlcude (copy contents of glfw-zip/inlcude)
-            |
-            ----lib (copy contents of files from glfw-zip lib-vc2019 folder)
+
+15. In order to test our engine, let's create a package called `engineTester`. Under this package we will create a sample game `Main.java`.
+
+    ```java
+    package engineTester;
+
+    import renderEngine.DisplayManager;
+
+    public class Main {
+
+        public static void main(String[] args) {
+            
+            DisplayManager displayManager = new DisplayManager("OpenKraft", 1280, 720, 120);
+            
+            displayManager.createDisplay();
+            
+            while(!displayManager.isCloseRequested()) {
+                displayManager.updateDisplay();
+            }
+            
+            displayManager.closeDisplay();
+
+        }
+
+    }
     ```
-5. Move the `Linking` folder to the project folder, keep it in the same location as the `sln` file.
-6. Move the `dll` file (`dll` stands for **Dynamically Lined Libraries**) present in `Linking/GLFW/lib` to the root of the project where the source files will be present.
-7. Right-click on the project on Visual Studio and open `Properties` or simply hit `Alt+Enter` selecting the project on Visual Studio.
 
     <figure class="image">
         <center>
-            <img src="{{site.baseurl}}/images/opengl-logs/log_1_2.png">
-            <figcaption>Open Properties</figcaption>
+            <img src="{{site.baseurl}}/images/opengl-logs/log_1.png">
+            <figcaption>Result of executing the code</a></figcaption>
         </center>
     </figure>
 
-8. Make sure `Configuration` and `Platform` are set respectively to `All Configurations` and `Active(Win32)` respectively.
-9. Select `C/C++` property from the list of `Configuration Properties` on the left side of the dialog box.
-
-    <figure class="image">
-        <center>
-            <img src="{{site.baseurl}}/images/opengl-logs/log_1_3.png">
-        </center>
-    </figure>
-
-10. Go to `General` under `C/C++` and edit the `Additional Include Directories` property. Here you should give the relative or dynamic path to the external input folder which is `$(SolutionDir)\Linking\GLFW\include`. Confirm and apply the change you made.
-11. Go into `Linker` outside of `C/C++`, select `General` and edit the `Additional Library Directories` property, set it to `$(SolutionDir)\Linking\GLFW\lib`.
-12. Now, go to `Input` under `Linker` and edit the `Additional Dependencies` directory. In the list, write down `opengl32.lib` and `glfw3.lib`. Apply everything.
-
-    <figure class="image">
-        <center>
-            <img src="{{site.baseurl}}/images/opengl-logs/log_1_4.png">
-            <figcaption>List the libraries in this manner</figcaption>
-        </center>
-    </figure>
-
-13. Make a sanity check: inside a `cpp` file try to include `glfw3.h`, you should be getting autocomplete suggestions.
-
-## Setting Up GLEW
-
-[The OpenGL Extension Wrangler Library](http://glew.sourceforge.net/) or GLEW in short, is a cross-platform open-source C/C++ extension loading library. GLEW provides efficient run-time mechanisms for determining which OpenGL extensions are supported on the target platform. OpenGL core and extension functionality is exposed in a single header file. GLEW has been tested on a variety of operating systems, including Windows, Linux, Mac OS X, FreeBSD, Irix, and Solaris.
-
-Following are the steps to set up GLEW with Visual Studio 2019 on Windows 10:
-
-1. Download the binaries from [http://glew.sourceforge.net/](http://glew.sourceforge.net/) and unzip it.
-
-    <figure class="image">
-        <center>
-            <img src="{{site.baseurl}}/images/opengl-logs/log_1_5.png">
-            <figcaption>Download the 32 Bit pre-compiled binaries for Windows</figcaption>
-        </center>
-    </figure>
-
-2. Create a directory structure at the `Linking` folder similar to `GLFW`, this time for `GLEW`.
-3. Copy the files in the `include/GL` directory in the unzipped GLEW directory and past them inside `Linking/GLEW/inlcude` folder.
-4. Copy the files from the `lib/Release/Win32` in the unzipped GLEW directory and paste them inside `Linking/GLEW/lib`.
-5. Copy the file `bin/Release/Win32/glew32.dll` from the unzipped GLEW directory and paste them inside the project root folder.
-6. Link the `include` and `lib` directories in a fashion similar to GLFW.
-7. Add `glew32.lib` to the list of Additional Dependencies.
-8. Make a sanity check: inside a `cpp` file try to include `glew.h`, you should be getting autocomplete suggestions.
+**Corresponding Commit:** [https://github.com/soumik12345/OpenKraft/tree/13308a3b7c6b2d9614a848e5bd020f3c34e450c2](https://github.com/soumik12345/OpenKraft/tree/13308a3b7c6b2d9614a848e5bd020f3c34e450c2).
