@@ -130,7 +130,7 @@ Following are the steps to set up dependencies on MacOS and Eclise IDE:
     <figure class="image">
         <center>
             <img src="{{site.baseurl}}/images/opengl-logs/log_1.png">
-            <figcaption>Result of executing the code</a></figcaption>
+            <figcaption>Result of executing the code</figcaption>
         </center>
     </figure>
 
