@@ -3,7 +3,7 @@ toc: true
 layout: post
 description: Implementation of "Efficient Graph-Based Image Segmentation" paper written by P. Felzenszwalb and D. Huttenlocher.
 categories: [algebra, computervision, convolution, maths, python]
-title: Depthwise Separable Convolutions in Deep Learning
+title: Efficient Graph-Based Image Segmentation
 image: images/felzenszwalb_logo.png
 ---
 
