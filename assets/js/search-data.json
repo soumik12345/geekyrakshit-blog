@@ -2,7 +2,7 @@
   
     
         "post0": {
-            "title": "Depthwise Separable Convolutions in Deep Learning",
+            "title": "Efficient Graph-Based Image Segmentation",
             "content": "In this article, we would be discussing the paper Efficient Graph-Based Image Segmentation by Pedro F. Felzenszwalb from Artificial Intelligence Lab, Massachusetts Institute of Technology and Daniel P. Huttenlocher from Computer Science Department, Cornell University, . Segmentation . Before delving any further, let us try to understand a bit more about the task at hand. What exactly do we mean by image segmentation? . Image Segmentation can be defined as the task of partitioning a given image into a set of disjoint regions usually with a goal of simplifying the representation of the image into something that is more meaningful and easier to analyze.",
             "url": "https://soumik12345.github.io/geekyrakshit-blog/algebra/computervision/convolution/maths/python/2020/09/17/efficient-graph-based-image-segmentation.html",
             "relUrl": "/algebra/computervision/convolution/maths/python/2020/09/17/efficient-graph-based-image-segmentation.html",
