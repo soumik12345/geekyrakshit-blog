@@ -32,13 +32,32 @@ It has been observed from past segmentation approaches that
     </center>
 </figure>
 
+## The Idea
+
 Observing the performance of the past methods of image segmentation, the objective of this paper has been to develop an alogorithm for image segmentation that
 
 - captures perceptually important regions that reflect global aspect.
-- runs efficiently with time complexity of $$O(n * log(n))$$.
+- runs efficiently at near linear time complexity, $$O(n * log(n))$$ in this case.
 
 The idea proposed by Felzenszwalb and Huttenlocher is based on selecting edges from a graph, where each pixel corresponds to a node in the graph, and certain neighboring pixels are connected by undirected edges such that weights on each edge measure the dissimilarity between pixels. However, unlike the classical methods that predate this paper, this technique adaptively adjusts the segmentation criterion based on the degree of variability in neighboring regions of the image. This results in a method that, while
 making greedy decisions, can be shown to obey certain non-obvious global properties. The adaptive criteria is defined as follows:
 
 <blockquote>There is a boundary between two adjacent regions C<sub>i</sub> and C<sub>j</sub>, i.e,
 Variation across C<sub>i</sub> and C<sub>j</sub> is greater than variation within C<sub>i</sub> or C<sub>j</sub> individually.</blockquote>
+
+<figure class="image">
+    <center>
+        <img src="{{site.baseurl}}/images/felzenszwalb/felzenszwalb_3.png">
+    </center>
+</figure>
+
+## Problem Formulation
+
+Let $$G=(V, E)$$ be an undirected graph such that,
+
+- $$v_{i} \epsilon V$$: set of vertices or pixels in the image to be segmented.
+- $$e = (v_{i}, v_{j}) \epsilon E$$: set of edges corresponding to pairs of neighbouring vertices or pixels.
+- Each edge $$e = (v_{i}, v_{j}) \epsilon E$$ has a weight $$w(v_{i}, v_{j})$$ denoting the dissimilarity between v<sub>i</sub> and v<sub>j</sub>.
+
+$$S$$ is a segmentation of a graph G such that $${G}' = (V, {E}')$$ where $${E}' \subset E$$.
+$$S$$ divides $$G$$ into $${G}'$$ such that it contains distinct components (or regions) $$C$$.
