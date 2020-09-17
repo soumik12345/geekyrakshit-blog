@@ -179,6 +179,19 @@ window.onload = wrap_img;
     </center>
 </figure>
 
+<p>Observing the performance of the past methods of image segmentation, the objective of this paper has been to develop an alogorithm for image segmentation that</p>
+
+<ul>
+  <li>captures perceptually important regions that reflect global aspect.</li>
+  <li>runs efficiently with time complexity of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo>∗</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n * log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>.</li>
+</ul>
+
+<p>The idea proposed by Felzenszwalb and Huttenlocher is based on selecting edges from a graph, where each pixel corresponds to a node in the graph, and certain neighboring pixels are connected by undirected edges such that weights on each edge measure the dissimilarity between pixels. However, unlike the classical methods that predate this paper, this technique adaptively adjusts the segmentation criterion based on the degree of variability in neighboring regions of the image. This results in a method that, while
+making greedy decisions, can be shown to obey certain non-obvious global properties. The adaptive criteria is defined as follows:</p>
+
+<blockquote>There is a boundary between two adjacent regions C<sub>i</sub> and C<sub>j</sub>, i.e,
+Variation across C<sub>i</sub> and C<sub>j</sub> is greater than variation within C<sub>i</sub> or C<sub>j</sub> individually.</blockquote>
+
   </div><a class="u-url" href="/geekyrakshit-blog/algebra/computervision/convolution/maths/python/2020/09/17/efficient-graph-based-image-segmentation.html" hidden></a>
 </article>
       </div>
