@@ -31,3 +31,14 @@ It has been observed from past segmentation approaches that
         <img src="{{site.baseurl}}/images/felzenszwalb/felzenszwalb_2.png">
     </center>
 </figure>
+
+Observing the performance of the past methods of image segmentation, the objective of this paper has been to develop an alogorithm for image segmentation that
+
+- captures perceptually important regions that reflect global aspect.
+- runs efficiently with time complexity of $$O(n * log(n))$$.
+
+The idea proposed by Felzenszwalb and Huttenlocher is based on selecting edges from a graph, where each pixel corresponds to a node in the graph, and certain neighboring pixels are connected by undirected edges such that weights on each edge measure the dissimilarity between pixels. However, unlike the classical methods that predate this paper, this technique adaptively adjusts the segmentation criterion based on the degree of variability in neighboring regions of the image. This results in a method that, while
+making greedy decisions, can be shown to obey certain non-obvious global properties. The adaptive criteria is defined as follows:
+
+<blockquote>There is a boundary between two adjacent regions C<sub>i</sub> and C<sub>j</sub>, i.e,
+Variation across C<sub>i</sub> and C<sub>j</sub> is greater than variation within C<sub>i</sub> or C<sub>j</sub> individually.</blockquote>
