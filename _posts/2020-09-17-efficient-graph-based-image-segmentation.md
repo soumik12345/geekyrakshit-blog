@@ -9,7 +9,7 @@ image: images/felzenszwalb_logo.png
 
 In this article, we would be discussing the paper **[Efficient Graph-Based Image Segmentation](http://people.cs.uchicago.edu/~pff/papers/seg-ijcv.pdf)** by <a href="mailto:pff@ai.mit.edu">Pedro F. Felzenszwalb</a> from Artificial Intelligence Lab, Massachusetts Institute of Technology and <a href="mailto:dph@cs.cornell.edu">Daniel P. Huttenlocher</a> from Computer Science Department, Cornell University.
 
-## Segmentation
+## What is Segmentation?
 
 Before delving any further, let us try to understand a bit more about the task at hand. What exactly do we mean by image segmentation?
 
@@ -61,3 +61,10 @@ Let $$G=(V, E)$$ be an undirected graph such that,
 
 $$S$$ is a segmentation of a graph G such that $${G}' = (V, {E}')$$ where $${E}' \subset E$$.
 $$S$$ divides $$G$$ into $${G}'$$ such that it contains distinct components (or regions) $$C$$.
+
+### Graph Representation
+
+Let an image consist of pixels from P1 to P20.
+
+<div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;app.diagrams.net\&quot; modified=\&quot;2020-09-18T07:38:57.222Z\&quot; agent=\&quot;5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36\&quot; etag=\&quot;1VdCmRGr3K3VReG4K-48\&quot; version=\&quot;12.9.7\&quot; type=\&quot;device\&quot;&gt;&lt;diagram id=\&quot;OjWp4HWtmnEIbqeM9SzM\&quot; name=\&quot;Page-1\&quot;&gt;zdlNa4MwHAbwT+OxYIxWe23XbTAKAxk7jlAzlamRmE67T790JrY2KWyHkf+lmMf40p8lPFgPb+rhgZO22LGMVl7gZ4OH77wgiHEiP0/BcQyiAI9BzstsjNA5SMsvqkJfpYcyo91somCsEmU7D/esaehezDLCOevn095ZNb9qS3JqBOmeVGb6WmaiGNMk8s/5Iy3zQl8Z+WpPTfRkFXQFyVh/EeGthzecMTFu1cOGVic77TIed39j73RjnDbiNwdEu+QjjmjbPtUvixTxQ/NWLNRZPkl1UF/4WUWdOGqDvigFTVuyP417+Zg9vC5EXckRkpuka0f593Kg8mJrdU7KBR1u3iyaCORPh7KaCn6UU/QBWk39bEI17C+egYqKC36dEfXU8+nEZxi5oWz+4BSYTgEEp8CH5YRNJwzCKYHlFJpOIQQnvITlFJlOEQSnMITltDSdlhCcrtfxaewKKjahYghQ1wu5c6jEhEpAQCXAoFYm1AoC1PVS7hxKV/pZ2fQhUF2v5u6pbL0cZDGf1i1nVJZqrjNYS7p7Kks7RyDruXsqS0FHIBu6eypLR0cgS7p7KktNRyB7+mTgjMpS1BHIpu6eylLVEciu7p7KUtYRyLbunEovCLNXniDb+j9SyeH5Bf3Pvot/OfD2Gw==&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
+<script type="text/javascript" src="https://app.diagrams.net/js/viewer.min.js"></script>
