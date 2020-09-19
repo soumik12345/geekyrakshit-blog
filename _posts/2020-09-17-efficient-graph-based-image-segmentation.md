@@ -104,6 +104,8 @@ Going by this formulation, one possible one possible solution can the sets <code
 
 ### Partition Strategy
 
+#### Internal Difference
+
 <p>The paper defines **Internal Difference** *(Int)* by of a componenet <code>C ⊆ V</code> as the largest weight in the *Minimum Spanning Tree* `MST(C, E)` of that component, i.e,
 
 $$Int(C) = \max_{e \epsilon MST(C, E)} w(e)$$
@@ -112,6 +114,16 @@ $$Int(C) = 0$$ if C has a single pixel.
 
 One intuition underlying this measure is that a given component C only remains
 connected when edges of weight at least Int(C) are considered.</p>
+
+By this definition,
+
+- Int(C<sub>1</sub>) = max(MST(C<sub>1</sub>, E)) = max(2, 2, 0, 1, 2, 1) = 2
+
+- Int(C<sub>2</sub>) = 5
+
+- Int(C<sub>3</sub>) = max(20, 10) = 20
+
+#### Component Difference
 
 <p>The paper also **Component Difference** *(Dif)* as the difference between two components <code>C<sub>1</sub>, C<sub>2</sub> ⊆ V</code> to be the minimum weight edge connecting the two components, i.e,
 
@@ -123,10 +135,19 @@ If there is no edge connecting <code>C<sub>1</sub></code> and <code>C<sub>2</sub
 This measure of difference could in principle be problematic, because it reflects only the smallest edge weight between two components. In practice we have found that the measure works quite well in spite of this apparent limitation. Moreover, changing the definition to
 use the median weight, or some other quantile, in order to make it more robust to outliers, makes the problem of finding a good segmentation NP-hard. Thus a small change to the segmentation criterion vastly changes the difficulty of the problem.
 
-By the definitions in the paper, for the aforementioned segmented graph,
+By this definition,
 
-- Int(C<sub>1</sub>) = max(MST(C<sub>1</sub>, E)) = max(2, 2, 0, 1, 2, 1) = 2
+- Dif(C<sub>1</sub>, C<sub>2</sub>) = 24
 
-- Int(C<sub>2</sub>) = 5
+- Dif(C<sub>1</sub>, C<sub>3</sub>) = 94
 
-- Int(C<sub>3</sub>) = max(20, 10) = 20
+- Dif(C<sub>2</sub>, C<sub>3</sub>) = 55
+
+### Boundary Predicate
+
+The criterion for evaluating the evidence of a boundary between a pair of adjacent components is that,
+
+<blockquote>There exists a boundary between two components if the Componenet Difference between the components is greater than the Internal Differences of either of the components</blockquote>
+
+<br>
+$$D(C_{1}, C_{2}) = \begin{Bmatrix} true & Dif(C_{i}, C_{j}) > min(Int(C_{i}), Int(C_{j}))\\ false & otherwise \end{Bmatrix}$$
