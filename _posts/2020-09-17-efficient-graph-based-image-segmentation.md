@@ -194,6 +194,6 @@ $$D(C_{i}, C_{j}) = false$$
 
 This happens if $$Dif(C_{i}, C_{j}) \leq min(Int(C_{i}) + \tau(C_{i}), Int(C_{j}) + \tau(C_{i}))$$
 
-=> $$Dif(C_{i}, C_{j}) \leq min(Int(C_{i}) + \frac{k}{|C_{i}|}, Int(C_{j}) + \frac{k}{|C_{j}|})$$
+or, $$Dif(C_{i}, C_{j}) \leq min(Int(C_{i}) + \frac{k}{|C_{i}|}, Int(C_{j}) + \frac{k}{|C_{j}|})$$
 
 Hence we can say $$D(C_{i}, C_{j}) = false$$ if $$Dif(C_{i}, C_{j}) \leq Int(C_{i}) + \frac{k}{|C_{i}|}$$ **or** $$Dif(C_{i}, C_{j}) \leq Int(C_{j}) + \frac{k}{|C_{j}|}$$.
