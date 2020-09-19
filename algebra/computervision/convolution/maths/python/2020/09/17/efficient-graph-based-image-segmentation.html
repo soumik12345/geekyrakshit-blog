@@ -121,7 +121,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      5 min read
     
 </span></p>
 
@@ -156,7 +156,13 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h3"><a href="#graph-representation">Graph Representation</a></li>
 <li class="toc-entry toc-h3"><a href="#segmentation-formulation">Segmentation Formulation</a></li>
-<li class="toc-entry toc-h3"><a href="#partition-strategy">Partition Strategy</a></li>
+<li class="toc-entry toc-h3"><a href="#partition-strategy">Partition Strategy</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#internal-difference">Internal Difference</a></li>
+<li class="toc-entry toc-h4"><a href="#component-difference">Component Difference</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#boundary-predicate">Boundary Predicate</a></li>
 </ul>
 </li>
 </ul><p>In this article, we would be discussing the paper <strong><a href="http://people.cs.uchicago.edu/~pff/papers/seg-ijcv.pdf">Efficient Graph-Based Image Segmentation</a></strong> by <a href="mailto:pff@ai.mit.edu">Pedro F. Felzenszwalb</a> from Artificial Intelligence Lab, Massachusetts Institute of Technology and <a href="mailto:dph@cs.cornell.edu">Daniel P. Huttenlocher</a> from Computer Science Department, Cornell University.</p>
@@ -275,6 +281,9 @@ Variation across C<sub>i</sub> and C<sub>j</sub> is greater than variation withi
 <h3 id="partition-strategy">
 <a class="anchor" href="#partition-strategy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Partition Strategy</h3>
 
+<h4 id="internal-difference">
+<a class="anchor" href="#internal-difference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Internal Difference</h4>
+
 <p>The paper defines **Internal Difference** *(Int)* by of a componenet <code>C ⊆ V</code> as the largest weight in the *Minimum Spanning Tree* `MST(C, E)` of that component, i.e,
 
 $$Int(C) = \max_{e \epsilon MST(C, E)} w(e)$$
@@ -284,17 +293,7 @@ $$Int(C) = 0$$ if C has a single pixel.
 One intuition underlying this measure is that a given component C only remains
 connected when edges of weight at least Int(C) are considered.</p>
 
-<p>The paper also **Component Difference** *(Dif)* as the difference between two components <code>C<sub>1</sub>, C<sub>2</sub> ⊆ V</code> to be the minimum weight edge connecting the two components, i.e,
-
-$$Dif(C_{1}, C_{2}) = \min_{v_{i} \epsilon C_{1}, v_{j} \epsilon C_{2}, (v_{i}, v_{j}) \epsilon E} w((v_{i}, v_{j}))$$
-
-If there is no edge connecting <code>C<sub>1</sub></code> and <code>C<sub>2</sub></code>, we let $$Dif(C_{1}, C_{2}) = \infty$$
-</p>
-
-<p>This measure of difference could in principle be problematic, because it reflects only the smallest edge weight between two components. In practice we have found that the measure works quite well in spite of this apparent limitation. Moreover, changing the definition to
-use the median weight, or some other quantile, in order to make it more robust to outliers, makes the problem of finding a good segmentation NP-hard. Thus a small change to the segmentation criterion vastly changes the difficulty of the problem.</p>
-
-<p>By the definitions in the paper, for the aforementioned segmented graph,</p>
+<p>By this definition,</p>
 
 <ul>
   <li>
@@ -307,6 +306,43 @@ use the median weight, or some other quantile, in order to make it more robust t
     <p>Int(C<sub>3</sub>) = max(20, 10) = 20</p>
   </li>
 </ul>
+
+<h4 id="component-difference">
+<a class="anchor" href="#component-difference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Component Difference</h4>
+
+<p>The paper also **Component Difference** *(Dif)* as the difference between two components <code>C<sub>1</sub>, C<sub>2</sub> ⊆ V</code> to be the minimum weight edge connecting the two components, i.e,
+
+$$Dif(C_{1}, C_{2}) = \min_{v_{i} \epsilon C_{1}, v_{j} \epsilon C_{2}, (v_{i}, v_{j}) \epsilon E} w((v_{i}, v_{j}))$$
+
+If there is no edge connecting <code>C<sub>1</sub></code> and <code>C<sub>2</sub></code>, we let $$Dif(C_{1}, C_{2}) = \infty$$
+</p>
+
+<p>This measure of difference could in principle be problematic, because it reflects only the smallest edge weight between two components. In practice we have found that the measure works quite well in spite of this apparent limitation. Moreover, changing the definition to
+use the median weight, or some other quantile, in order to make it more robust to outliers, makes the problem of finding a good segmentation NP-hard. Thus a small change to the segmentation criterion vastly changes the difficulty of the problem.</p>
+
+<p>By this definition,</p>
+
+<ul>
+  <li>
+    <p>Dif(C<sub>1</sub>, C<sub>2</sub>) = 24</p>
+  </li>
+  <li>
+    <p>Dif(C<sub>1</sub>, C<sub>3</sub>) = 94</p>
+  </li>
+  <li>
+    <p>Dif(C<sub>2</sub>, C<sub>3</sub>) = 55</p>
+  </li>
+</ul>
+
+<h3 id="boundary-predicate">
+<a class="anchor" href="#boundary-predicate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Boundary Predicate</h3>
+
+<p>The criterion for evaluating the evidence of a boundary between a pair of adjacent components is that,</p>
+
+<blockquote>There exists a boundary between two components if the Componenet Difference between the components is greater than the Internal Differences of either of the components</blockquote>
+
+<p><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false">(</mo><msub><mi>C</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>C</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>D</mi><mi>i</mi><mi>f</mi><mo stretchy="false">(</mo><msub><mi>C</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>C</mi><mi>j</mi></msub><mo stretchy="false">)</mo><mo>&gt;</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mi>I</mi><mi>n</mi><mi>t</mi><mo stretchy="false">(</mo><msub><mi>C</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>I</mi><mi>n</mi><mi>t</mi><mo stretchy="false">(</mo><msub><mi>C</mi><mi>j</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>o</mi><mi>t</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>w</mi><mi>i</mi><mi>s</mi><mi>e</mi></mrow></mstyle></mtd></mtr></mtable><mo fence="true">}</mo></mrow></mrow><annotation encoding="application/x-tex">D(C_{1}, C_{2}) = \begin{Bmatrix} true &amp; Dif(C_{i}, C_{j}) &gt; min(Int(C_{i}), Int(C_{j}))\\ false &amp; otherwise \end{Bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">o</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">}</span></span></span></span></span></span></p>
 
   </div><a class="u-url" href="/geekyrakshit-blog/algebra/computervision/convolution/maths/python/2020/09/17/efficient-graph-based-image-segmentation.html" hidden></a>
 </article>
