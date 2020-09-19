@@ -158,3 +158,33 @@ In order the counter this effect, the paper introduces a **Threshold Function** 
 of observation, in that a larger k causes a preference for larger components. Note, however, that k is not a minimum component size. Smaller components are allowed when there is a sufficiently large difference between neighboring components.
 
 The original predicate is thus rewritten as $$D(C_{1}, C_{2}) = \begin{Bmatrix} true & Dif(C_{i}, C_{j}) > min(Int(C_{i}) + \tau(C_{i}), Int(C_{j}) + \tau(C_{i}))\\ false & otherwise \end{Bmatrix}$$.
+
+## Segmentation Algorithm
+
+**Input:**
+
+- A graph `G = (V, E)` with `n` vertices and `m` edges.
+- A constant parameter `k`.
+
+**Output:**
+
+- A partition of `V` into segments <code>S=(C<sub>1</sub>, C<sub>1</sub>, ...)</code>
+
+**Initialization:**
+
+- Consider each vertex a single element componenet.
+- Initialize each component <code>C<sub>i</sub></code> with <code>Int(C<sub>i</sub>) = 0</code>.
+- Sort all edges `e ∈ E` into <code>(e<sub>1</sub>, e<sub>2</sub>, ..., e<sub>m</sub>)</code> according to their weights in a non-decreasing order.
+
+**Iteration Step `q=(1, m)`:**
+
+- Take step <code>e<sub>q</sub> = (v<sub>i</sub>, v<sub>j</sub>)</code>, where <code>v<sub>i</sub> = C<sub>i</sub></code> and <code>v<sub>j</sub> = C<sub>j</sub></code>.
+
+- If C<sub>j</sub> != C<sub>j</sub>
+    
+    - If boundary predicate <code>D(C<sub>j</sub>, C<sub>j</sub>) = false</code>, merge all the componenets <code>C<sub>i</sub></code> and <code>C<sub>j</sub></code>.
+
+    - If <code>C<sub>i</sub></code> and <code>C<sub>j</sub></code> are merged, <code>Int(C<sub>i</sub> ∪ C<sub>j</sub>) = w(e<sub>q</sub>)</code>.
+
+- `q = q + 1`
+
