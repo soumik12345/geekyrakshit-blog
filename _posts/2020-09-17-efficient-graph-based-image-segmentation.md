@@ -180,7 +180,7 @@ The original predicate is thus rewritten as $$D(C_{1}, C_{2}) = \begin{Bmatrix} 
 
 - Take step <code>e<sub>q</sub> = (v<sub>i</sub>, v<sub>j</sub>)</code>, where <code>v<sub>i</sub> = C<sub>i</sub></code> and <code>v<sub>j</sub> = C<sub>j</sub></code>.
 
-- If C<sub>j</sub> != C<sub>j</sub>
+- If <code>C<sub>j</sub> != C<sub>j</sub></code>
     
     - If boundary predicate <code>D(C<sub>j</sub>, C<sub>j</sub>) = false</code>, merge all the componenets <code>C<sub>i</sub></code> and <code>C<sub>j</sub></code>.
 
@@ -188,3 +188,12 @@ The original predicate is thus rewritten as $$D(C_{1}, C_{2}) = \begin{Bmatrix} 
 
 - `q = q + 1`
 
+The Merge Condition in the iteration step is defined as
+
+$$D(C_{i}, C_{j}) = false$$
+
+This happens if $$Dif(C_{i}, C_{j}) \leq min(Int(C_{i}) + \tau(C_{i}), Int(C_{j}) + \tau(C_{i}))$$
+
+=> $$Dif(C_{i}, C_{j}) \leq min(Int(C_{i}) + \frac{k}{|C_{i}|}, Int(C_{j}) + \frac{k}{|C_{j}|})$$
+
+Hence we can say $$D(C_{i}, C_{j}) = false$$ if $$Dif(C_{i}, C_{j}) \leq Int(C_{i}) + \frac{k}{|C_{i}|}$$ **or** $$Dif(C_{i}, C_{j}) \leq Int(C_{j}) + \frac{k}{|C_{j}|}$$.
