@@ -151,3 +151,10 @@ The criterion for evaluating the evidence of a boundary between a pair of adjace
 
 <br>
 $$D(C_{1}, C_{2}) = \begin{Bmatrix} true & Dif(C_{i}, C_{j}) > min(Int(C_{i}), Int(C_{j}))\\ false & otherwise \end{Bmatrix}$$
+
+However, this predicate is not a good example of local property because it makes the algorithm predict a lot of small components with small size, in the extreme case if Internal Difference is 0, then the component becomes a single pixel. 
+
+In order the counter this effect, the paper introduces a **Threshold Function** `τ` that controls the degree to which the difference between two components must be greater than their internal differences in order for there to be evidence of a boundary between them. It is given by $$\tau(c) = \frac{k}{|C|}$$, where `|C|` denotes the size of `C`, and `k` is some constant parameter. This means, for small components we require stronger evidence for a boundary. In practice k sets a scale
+of observation, in that a larger k causes a preference for larger components. Note, however, that k is not a minimum component size. Smaller components are allowed when there is a sufficiently large difference between neighboring components.
+
+The original predicate is thus rewritten as $$D(C_{1}, C_{2}) = \begin{Bmatrix} true & Dif(C_{i}, C_{j}) > min(Int(C_{i}) + \tau(C_{i}), Int(C_{j}) + \tau(C_{i}))\\ false & otherwise \end{Bmatrix}$$.
