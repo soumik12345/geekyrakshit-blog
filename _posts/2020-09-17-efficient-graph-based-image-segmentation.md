@@ -193,3 +193,5 @@ The Merge Condition in the iteration step is defined as
 $$D(C_{i}, C_{j}) = false$$
 
 This happens if $$Dif(C_{i}, C_{j}) \leq min(Int(C_{i}) + \tau(C_{i}), Int(C_{j}) + \tau(C_{i}))$$.
+
+This means that $$Dif(C_{i}, C_{j}) \leq Int(C_{i}) + \frac{k}{\tau(C_{i})}$$ or $$Dif(C_{i}, C_{j}) \leq Int(C_{j}) + \frac{k}{\tau(C_{j})}$$.
