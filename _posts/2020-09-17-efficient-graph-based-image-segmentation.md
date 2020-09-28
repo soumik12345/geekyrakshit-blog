@@ -197,3 +197,37 @@ This happens if $$Dif(C_{i}, C_{j}) \leq min(Int(C_{i}) + \tau(C_{i}), Int(C_{j}
 This means that $$Dif(C_{i}, C_{j}) \leq Int(C_{i}) + \frac{k}{\tau(C_{i})}$$ or $$Dif(C_{i}, C_{j}) \leq Int(C_{j}) + \frac{k}{\tau(C_{j})}$$.
 
 We can also write the condition as $$w(e_{q}) \leq Int(C_{i}) + \frac{k}{\tau(C_{i})}$$ or $$w(e_{q}) \leq Int(C_{j}) + \frac{k}{\tau(C_{j})}$$.
+
+## Implementation
+
+I created a minimal python implementation of [Felzenszwalb Segmentation](https://github.com/soumik12345/felzenszwalb_segmentation). It can be installed using `pip install felzenszwalb-segmentation`. 
+
+```python
+import numpy as np
+from glob import glob
+from PIL import Image
+from matplotlib import pyplot as plt
+from felzenszwalb_segmentation import segment
+
+image_files = glob('./VOCdevkit/VOC2012/JPEGImages/*.jpg')
+
+image = np.array(Image.open(image_files[10]))
+segmented_image = segment(image, 0.2, 400, 50)
+
+fig = plt.figure(figsize=(12, 12))
+a = fig.add_subplot(1, 2, 1)
+plt.imshow(image)
+a = fig.add_subplot(1, 2, 2)
+plt.imshow(segmented_image.astype(np.uint8))
+plt.show()
+```
+
+## Results
+
+![](https://raw.githubusercontent.com/soumik12345/felzenszwalb_segmentation/master/assets/sample_1.png)
+
+![](https://raw.githubusercontent.com/soumik12345/felzenszwalb_segmentation/master/assets/sample_2.png)
+
+![](https://raw.githubusercontent.com/soumik12345/felzenszwalb_segmentation/master/assets/sample_3.png)
+
+![](https://raw.githubusercontent.com/soumik12345/felzenszwalb_segmentation/master/assets/sample_4.png)
